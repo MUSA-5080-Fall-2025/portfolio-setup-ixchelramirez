@@ -4,15 +4,15 @@ date: "2025-09-08"
 ---
 
 ## Key Concepts Learned
-- [List main concepts from lecture]
-- [Technical skills covered]
+- Reviewed the syllabus 
+- Overview of DPLYR commands
 
 ## Coding Techniques
-- [New R functions or approaches]
+- Select, filter, group_by, summarize, and mutate
 - [Quarto features learned]
 
 ## Questions & Challenges
-- [What I didn't fully understand]
+- I am still trying to understand how to update Github
 - [Areas needing more practice]
 
 ## Connections to Policy
