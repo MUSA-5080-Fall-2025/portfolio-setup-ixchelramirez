@@ -1,0 +1,7 @@
+"0","NewCars2 <- car_data %>%
+  select(Manufacturer, Fuel type)
+"
+"2","Error: unexpected symbol in:
+""NewCars2 <- car_data %>%
+  select(Manufacturer, Fuel type""
+"

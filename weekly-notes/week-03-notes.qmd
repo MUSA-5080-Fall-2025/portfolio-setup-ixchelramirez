@@ -1,0 +1,28 @@
+---
+title: "Week 1 Notes - Course Introduction"
+date: "2025-1509-"
+---
+
+## Key Concepts Learned
+- Hierarchy of spatial groupings in the Census and ACS. 
+- Census blocks are in the decennial and the smallest. 
+- Census block groups are in ACS data but have high MOE. 
+- Census tracts are larger with smaller MOE generally
+
+## Coding Techniques
+- ggplot which you use to plot data
+- Aes is not for decorating 
+- geom is for changing how something looks 
+- joins, you can join two columns if they have different names
+
+
+## Questions & Challenges
+- Still working on becoming more proficient in finding the column number that I need.
+
+
+## Connections to Policy
+- Understanding margins of error makes me realize why there must be systems in place to advocate for rural communities as often times these communitites have larger MOE
+
+## Reflection
+- Understanding the supplemental data that can be paired with ACS data
+

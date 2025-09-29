@@ -1,0 +1,26 @@
+---
+title: "Week 1 Notes - Course Introduction"
+date: "2025-1509-"
+---
+
+## Key Concepts Learned
+- Algorithms are a set of instructions
+- Working with Margins of Error - it is important to understand how reliable data are
+
+
+## Coding Techniques
+- Tibble
+- group_by()
+- summarize()
+
+
+## Questions & Challenges
+- Still understanding how to use GitHub
+
+
+## Connections to Policy
+Data analytics is used for incorporating data into decision making processes but this is not a solution for eliminating bias.
+
+## Reflection
+- Understand the limitations of data
+
