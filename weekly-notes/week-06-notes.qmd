@@ -1,0 +1,34 @@
+---
+title: "Week 6 Notes - Spatial Machine Learning & Advanced Regression"
+date: October 19, 2025
+---
+
+## Key Concepts Learned
+- Categorical Variables
+- Interactions
+- Polynomial terms
+- Why Space Matters
+  Hedonic model framework
+  Tobler's First Law
+  Spatial autocorrelation
+- Creating Spatial Features
+  Buffer aggregatiion 
+  k nearest neighbors
+  distance to amenities
+- Fixed effects
+
+## Coding Techniques
+- st_as_sf makes the data spatial
+- Use st_join to make a spatial join 
+- Adding dummy variables
+
+
+## Questions & Challenges
+- Do you need to test interactions to know if it should not be used as you will see overfitting when you map it? If not what is the threshold for a sample size being too small.
+
+## Connections to Policy
+- Spatial features help take into consideration things like crime levels, location and proximity to key attractions which impacts the desirability of something such as housing. 
+
+## Reflection
+- There is a lot of new information this week which will require extra work to understand.
+

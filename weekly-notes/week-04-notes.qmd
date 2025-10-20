@@ -1,0 +1,29 @@
+---
+title: "Week 4 Notes - Course Introduction"
+date: "2025-1509-"
+---
+
+## Key Concepts Learned
+-Spatial Data Fundamentals: vector model and sf objects, reading and inspecting spatial data, basic spatial data operations
+-Spatial Operations: spatial subsetting and filtering, spatial joins and relationships, measuring distances and areas
+-Goemetry Operations
+-Coordinate Systems: understanding projections and transfporming between coordinate systems
+
+## Coding Techniques
+- Buffers, intersections and unions 
+- st_touches for finding the board and st_intersects for finding which tracts overlap a metro area 
+- Buffers creates zones around a feature
+- union: combines multiple features into one
+-Changing projection to optimize different properties and have correct results
+
+
+## Questions & Challenges
+- Keeping in mind when to transform so I don't do this when it's not needed and make code longer.
+
+
+## Connections to Policy
+- The connection we are making to policy today is for healthcare to see which areas are properly resourced.
+
+## Reflection
+- Understanding how intersections works helps to pinpoint the needed information when looking at things spatially like the boarders of a county vs a tract that is inside a county and should be included.
+

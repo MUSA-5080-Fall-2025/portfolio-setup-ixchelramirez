@@ -1,0 +1,30 @@
+---
+title: "Week 5 Notes - Introduction to Linear Regression"
+date: "2025-1509-"
+---
+
+## Key Concepts Learned
+-Statistical Learning Framework
+-Understanding relationships vs Making predictions
+-Model Evaluation
+-Checking assumptions: 5 assumptions
+  Assumption 1 relationship must be linear
+  Assumption 2 Independent Variables not collinear
+  Assumption 3 Constant Variance - heteroskedasticity
+  Assumption 4 Outliers
+  Assumption 5 Residuals should be normally distributed 
+-Improving predictions 
+
+## Coding Techniques
+- RMSE 
+- Cross Validation
+
+
+## Questions & Challenges
+- RMSE is a key metric but what is the threhold?
+
+## Connections to Policy
+- Cross validation is a good technique to use but more time consuming so generally used on smaller data sets this impacts the type of testing that goes into policy. 
+## Reflection
+- The Assumptions make sense but I need more practice to understand how they are applied
+

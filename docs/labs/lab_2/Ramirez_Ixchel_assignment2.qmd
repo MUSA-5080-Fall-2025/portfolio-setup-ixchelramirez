@@ -878,18 +878,4 @@ School zones are generally safe for biking and walking. Only 3 of the points in 
 ## Finally - A few comments about your incorporation of feedback!
 I deleted additional instructions and added additional headers to help with readability. 
 
----
-
-## Submission Requirements
-
-**What to submit:**
-
-1. **Rendered HTML document posted to your course portfolio** with all code, outputs, maps, and text
-   - Use `embed-resources: true` in YAML so it's a single file
-   - All code should run without errors
-   - All maps and charts should display correctly
-
-**File naming:** `LastName_FirstName_Assignment2.html` and `LastName_FirstName_Assignment2.qmd`
-
----
 
