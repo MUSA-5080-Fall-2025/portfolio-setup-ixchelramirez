@@ -20,6 +20,8 @@ website:
         menu:
           - href: labs/lab1/scripts/assignment1.qmd
             text: Week 1
+          - href: labs/lab_2/Ramirez_Ixchel_assignment2.qmd
+            text: Week 2
 
 format:
   html:
