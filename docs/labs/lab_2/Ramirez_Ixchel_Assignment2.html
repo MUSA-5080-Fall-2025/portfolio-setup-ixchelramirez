@@ -4023,7 +4023,7 @@ vertical-align: -.125em;
 <section id="step-1-data-collection-5-points" class="level4">
 <h4 class="anchored" data-anchor-id="step-1-data-collection-5-points">Step 1: Data Collection (5 points)</h4>
 <p>Load the required spatial data: - Pennsylvania county boundaries - Pennsylvania hospitals (from lecture data) - Pennsylvania census tracts</p>
-<p><strong>Your Task:</strong></p>
+<p><strong>Set-up:</strong></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load required packages</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
@@ -4147,7 +4147,7 @@ First 5 geometries:</code></pre>
 <section id="step-2-get-demographic-data" class="level4">
 <h4 class="anchored" data-anchor-id="step-2-get-demographic-data">Step 2: Get Demographic Data</h4>
 <p><strong>Required variables:</strong> - Total population - Median household income - Population 65 years and over (you may need to sum multiple age categories)</p>
-<p><strong>Your Task:</strong></p>
+<p><strong>Loading Demographic Data:</strong></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get demographic data from ACS</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -4180,35 +4180,77 @@ First 5 geometries:</code></pre>
   |                                                                            
   |                                                                      |   0%
   |                                                                            
+  |=                                                                     |   1%
+  |                                                                            
   |====                                                                  |   6%
+  |                                                                            
+  |=====                                                                 |   8%
+  |                                                                            
+  |=======                                                               |  10%
+  |                                                                            
+  |==========                                                            |  14%
+  |                                                                            
+  |==========                                                            |  15%
+  |                                                                            
+  |============                                                          |  18%
   |                                                                            
   |=============                                                         |  19%
   |                                                                            
-  |==============                                                        |  21%
+  |================                                                      |  23%
   |                                                                            
   |==================                                                    |  25%
   |                                                                            
-  |======================                                                |  31%
+  |===================                                                   |  27%
   |                                                                            
-  |=========================                                             |  36%
+  |====================                                                  |  28%
   |                                                                            
-  |================================                                      |  45%
+  |=======================                                               |  33%
   |                                                                            
-  |=================================                                     |  47%
+  |========================                                              |  34%
   |                                                                            
-  |======================================                                |  55%
+  |===========================                                           |  39%
+  |                                                                            
+  |=============================                                         |  41%
+  |                                                                            
+  |================================                                      |  46%
+  |                                                                            
+  |==================================                                    |  49%
+  |                                                                            
+  |===================================                                   |  50%
+  |                                                                            
+  |====================================                                  |  51%
+  |                                                                            
+  |====================================                                  |  52%
   |                                                                            
   |========================================                              |  57%
   |                                                                            
+  |===========================================                           |  61%
+  |                                                                            
   |===========================================                           |  62%
   |                                                                            
-  |=================================================                     |  71%
+  |=============================================                         |  65%
   |                                                                            
-  |==========================================================            |  83%
+  |==============================================                        |  66%
   |                                                                            
-  |=================================================================     |  92%
+  |================================================                      |  69%
   |                                                                            
-  |===================================================================== |  99%
+  |=================================================                     |  70%
+  |                                                                            
+  |===================================================                   |  73%
+  |                                                                            
+  |===================================================                   |  74%
+  |                                                                            
+  |======================================================                |  77%
+  |                                                                            
+  |========================================================              |  80%
+  |                                                                            
+  |============================================================          |  85%
+  |                                                                            
+  |============================================================          |  86%
+  |                                                                            
+  |===================================================================   |  95%
+  |                                                                            
+  |===================================================================== |  98%
   |                                                                            
   |======================================================================| 100%</code></pre>
 </div>
@@ -4274,7 +4316,7 @@ $ pct_65plus    &lt;dbl&gt; 18.658777, 14.977974, 13.296206, 15.161290, 16.69435
 <section id="step-3-define-vulnerable-populations" class="level4">
 <h4 class="anchored" data-anchor-id="step-3-define-vulnerable-populations">Step 3: Define Vulnerable Populations</h4>
 <p>Identify census tracts with vulnerable populations based on TWO criteria: 1. Low median household income (choose an appropriate threshold) 2. Significant elderly population (choose an appropriate threshold)</p>
-<p><strong>Your Task:</strong></p>
+<p><strong>Finding Vulnerable Tracts:</strong></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter for vulnerable tracts based on your criteria</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
