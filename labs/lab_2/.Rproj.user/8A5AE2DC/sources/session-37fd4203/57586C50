@@ -1,17 +1,19 @@
 {
-    "id": "ACBE1A2D",
+    "id": "57586C50",
     "path": "C:/Users/ixche/Desktop/PPA/portfolio-setup-ixchelramirez/_quarto.yml",
     "project_path": null,
     "type": "yaml",
     "hash": "0",
     "contents": "",
     "dirty": false,
-    "created": 1760979402231.0,
+    "created": 1760980060902.0,
     "source_on_save": false,
     "relative_order": 2,
     "properties": {
         "source_window_id": "",
-        "Source": "Source"
+        "Source": "Source",
+        "cursorPosition": "15,24",
+        "scrollLine": "21"
     },
     "folds": "",
     "lastKnownWriteTime": 1760964384,

@@ -875,7 +875,7 @@ kable(summary_table, caption = "Summary of School Zone Safety and Bike Access in
 School zones are generally safe for biking and walking. Only 3 of the points in the 1000ft of school buffers have a 1000 or more crime incidents. The average number of crimes per school is 177 which is 0.14% of the crimes in Philadelphia. Since Philadelphia has 495 located throughout the city, this accounts for the high number for total crimes within 1000 feet of a school, which means it is more helpful to look at general trends of crime per school than this number alone.
 
 
-## Finally - A few comments about your incorporation of feedback!
+## Incorporation of feedback!
 I deleted additional instructions and added additional headers to help with readability. 
 
 
