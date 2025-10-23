@@ -3967,7 +3967,7 @@ vertical-align: -.125em;
   <li><a href="#challenge-options" id="toc-challenge-options" class="nav-link" data-scroll-target="#challenge-options">Challenge Options</a></li>
   <li><a href="#your-analysis" id="toc-your-analysis" class="nav-link" data-scroll-target="#your-analysis">Your Analysis</a></li>
   </ul></li>
-  <li><a href="#finally---a-few-comments-about-your-incorporation-of-feedback" id="toc-finally---a-few-comments-about-your-incorporation-of-feedback" class="nav-link" data-scroll-target="#finally---a-few-comments-about-your-incorporation-of-feedback">Finally - A few comments about your incorporation of feedback!</a></li>
+  <li><a href="#incorporation-of-feedback" id="toc-incorporation-of-feedback" class="nav-link" data-scroll-target="#incorporation-of-feedback">Incorporation of feedback!</a></li>
   </ul>
 </nav>
 </nav>
@@ -4023,7 +4023,7 @@ vertical-align: -.125em;
 <section id="step-1-data-collection-5-points" class="level4">
 <h4 class="anchored" data-anchor-id="step-1-data-collection-5-points">Step 1: Data Collection (5 points)</h4>
 <p>Load the required spatial data: - Pennsylvania county boundaries - Pennsylvania hospitals (from lecture data) - Pennsylvania census tracts</p>
-<p><strong>Your Task:</strong></p>
+<p><strong>Set-up:</strong></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load required packages</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
@@ -4147,7 +4147,7 @@ First 5 geometries:</code></pre>
 <section id="step-2-get-demographic-data" class="level4">
 <h4 class="anchored" data-anchor-id="step-2-get-demographic-data">Step 2: Get Demographic Data</h4>
 <p><strong>Required variables:</strong> - Total population - Median household income - Population 65 years and over (you may need to sum multiple age categories)</p>
-<p><strong>Your Task:</strong></p>
+<p><strong>Loading Demographic Data:</strong></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get demographic data from ACS</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -4180,81 +4180,51 @@ First 5 geometries:</code></pre>
   |                                                                            
   |                                                                      |   0%
   |                                                                            
-  |==                                                                    |   3%
+  |===                                                                   |   5%
   |                                                                            
-  |====                                                                  |   6%
+  |=======                                                               |  10%
   |                                                                            
-  |=====                                                                 |   8%
+  |==========                                                            |  15%
   |                                                                            
-  |======                                                                |   9%
-  |                                                                            
-  |========                                                              |  11%
-  |                                                                            
-  |==========                                                            |  14%
-  |                                                                            
-  |============                                                          |  17%
-  |                                                                            
-  |==============                                                        |  20%
+  |============                                                          |  18%
   |                                                                            
   |================                                                      |  23%
   |                                                                            
-  |=================                                                     |  24%
-  |                                                                            
-  |===================                                                   |  27%
+  |==================                                                    |  25%
   |                                                                            
   |=====================                                                 |  30%
   |                                                                            
-  |=======================                                               |  32%
+  |========================                                              |  34%
   |                                                                            
   |=========================                                             |  35%
-  |                                                                            
-  |===========================                                           |  38%
   |                                                                            
   |============================                                          |  40%
   |                                                                            
   |==============================                                        |  43%
   |                                                                            
-  |================================                                      |  46%
-  |                                                                            
-  |==================================                                    |  48%
-  |                                                                            
   |====================================                                  |  51%
   |                                                                            
-  |======================================                                |  54%
+  |=====================================                                 |  53%
   |                                                                            
-  |=======================================                               |  56%
+  |=========================================                             |  58%
   |                                                                            
-  |=========================================                             |  59%
+  |===========================================                           |  61%
   |                                                                            
-  |===========================================                           |  62%
+  |==============================================                        |  66%
   |                                                                            
-  |=============================================                         |  64%
+  |=================================================                     |  71%
   |                                                                            
-  |===============================================                       |  67%
-  |                                                                            
-  |================================================                      |  69%
-  |                                                                            
-  |===================================================                   |  74%
-  |                                                                            
-  |======================================================                |  77%
-  |                                                                            
-  |========================================================              |  79%
+  |=====================================================                 |  76%
   |                                                                            
   |========================================================              |  80%
   |                                                                            
-  |==========================================================            |  82%
-  |                                                                            
   |============================================================          |  85%
-  |                                                                            
-  |==============================================================        |  88%
   |                                                                            
   |===============================================================       |  90%
   |                                                                            
-  |=================================================================     |  93%
-  |                                                                            
   |===================================================================   |  96%
   |                                                                            
-  |===================================================================== |  98%
+  |===================================================================== |  99%
   |                                                                            
   |======================================================================| 100%</code></pre>
 </div>
@@ -4320,7 +4290,7 @@ $ pct_65plus    &lt;dbl&gt; 18.658777, 14.977974, 13.296206, 15.161290, 16.69435
 <section id="step-3-define-vulnerable-populations" class="level4">
 <h4 class="anchored" data-anchor-id="step-3-define-vulnerable-populations">Step 3: Define Vulnerable Populations</h4>
 <p>Identify census tracts with vulnerable populations based on TWO criteria: 1. Low median household income (choose an appropriate threshold) 2. Significant elderly population (choose an appropriate threshold)</p>
-<p><strong>Your Task:</strong></p>
+<p><strong>Finding Vulnerable Tracts:</strong></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter for vulnerable tracts based on your criteria</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -5284,8 +5254,8 @@ Geodetic CRS:  WGS 84</code></pre>
 <p><strong>Your interpretation:</strong> School zones are generally safe for biking and walking. Only 3 of the points in the 1000ft of school buffers have a 1000 or more crime incidents. The average number of crimes per school is 177 which is 0.14% of the crimes in Philadelphia. Since Philadelphia has 495 located throughout the city, this accounts for the high number for total crimes within 1000 feet of a school, which means it is more helpful to look at general trends of crime per school than this number alone.</p>
 </section>
 </section>
-<section id="finally---a-few-comments-about-your-incorporation-of-feedback" class="level2">
-<h2 class="anchored" data-anchor-id="finally---a-few-comments-about-your-incorporation-of-feedback">Finally - A few comments about your incorporation of feedback!</h2>
+<section id="incorporation-of-feedback" class="level2">
+<h2 class="anchored" data-anchor-id="incorporation-of-feedback">Incorporation of feedback!</h2>
 <p>I deleted additional instructions and added additional headers to help with readability.</p>
 
 

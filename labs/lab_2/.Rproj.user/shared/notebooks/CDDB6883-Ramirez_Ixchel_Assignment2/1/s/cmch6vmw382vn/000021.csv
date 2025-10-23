@@ -1,0 +1,6 @@
+"0",""
+"0","ggplot(hospitals) +"
+"0","  geom_sf() +"
+"0","  labs(title = ""Hospitals"") +"
+"0","  theme_minimal()"
+"0",""

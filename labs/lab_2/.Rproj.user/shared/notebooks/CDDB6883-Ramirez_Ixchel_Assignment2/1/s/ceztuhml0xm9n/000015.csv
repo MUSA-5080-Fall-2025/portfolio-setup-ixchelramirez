@@ -1,0 +1,7 @@
+"0",""
+"0","# View top 5 counties by total vulnerable population"
+"0","top5_vulnerable_pop <- county_stats %>%"
+"0","  slice_max(total_vulnerable_pop, n = 5) %>%"
+"0","  select(COUNTY_NAM, total_vulnerable_pop, n_underserved_tracts)"
+"0",""
+"0","top5_vulnerable_pop"

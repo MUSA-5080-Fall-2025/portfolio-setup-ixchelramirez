@@ -43,15 +43,18 @@ library(tigris)
 library(knitr)
 library(sf)
 library(dplyr)
+library(here)
+options(tigris_use_cache = TRUE)
+options(tigris_progress = FALSE) 
 
 # Load spatial data
-pa_counties <- st_read("C:/Users/ixche/Desktop/PPA/MUSA-5080-Fall-2025/lectures/week-04/data/Pennsylvania_County_Boundaries.shp")
+pa_counties <- st_read(here("data/Pennsylvania_County_Boundaries.shp"))
 
 census_tracts <- tracts(state = "PA", cb = TRUE, progress = FALSE)
 metro_areas <- core_based_statistical_areas(cb = TRUE, progress = FALSE)
 # Read GeoJSON
-districts <- st_read("C:/Users/ixche/Desktop/PPA/MUSA-5080-Fall-2025/lectures/week-04/data/districts.geojson")
-hospitals <- st_read("C:/Users/ixche/Desktop/PPA/MUSA-5080-Fall-2025/lectures/week-04/data/hospitals.geojson")
+districts <- st_read(here("data/districts.geojson"))
+hospitals <- st_read(here("data/hospitals.geojson"))
 
   
 # Check that all data loaded correctly
@@ -658,9 +661,9 @@ Most vulnerable tracts are within a 15 miles of a hospital, a small portion of t
 ```{r}
 # Load your additional dataset
 
-schools <- st_read("C:/Users/ixche/Desktop/PPA/Working Files/lab_2/Schools.geojson")
-crime <- st_read("C:/Users/ixche/Desktop/PPA/Working Files/lab_2/incidents_part1_part2 (2)/incidents_part1_part2.shp")
-bikenetwork <- st_read("C:/Users/ixche/Desktop/PPA/Working Files/lab_2/Bike_Network.geojson")
+schools <- st_read(here("data/Schools.geojson"))
+crime <- st_read(here("data/incidents_part1_part2.shp"))
+bikenetwork <- st_read(("data/Bike_Network.geojson"))
 
 target_crs <- st_crs(2272)
 schools <- st_transform(schools, target_crs)
