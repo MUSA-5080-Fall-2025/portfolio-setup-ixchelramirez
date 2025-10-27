@@ -1,0 +1,24 @@
+---
+title: "Week 7 Notes"
+date: October 26, 2025
+---
+
+## Key Concepts Learned
+- Tips for improving assignment 2
+- Tobler's First Law and using neighborhood affect to fix predictions
+- Moran's I 
+- Cross Validation accounting for spatial lag will make model better
+
+
+## Coding Techniques
+- Profress = FALSE gets rid of lines can either set this globally or locally.
+
+## Questions & Challenges
+- What are other ways to account for neighborhood factors that are not wealth?
+
+
+## Connections to Policy
+- There is no perfect model so it is necessary to understand where a model falls short and state this. 
+
+## Reflection
+- Finding the right balance between overpredicting and not including enough data is hard
