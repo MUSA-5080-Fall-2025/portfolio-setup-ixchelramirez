@@ -31,8 +31,9 @@ website:
           - href: labs/lab_2/Ramirez_Ixchel_Assignment2.qmd
             text: Lab 2 
           - href: labs/lab3/Ixchel/Final_Appendix.qmd
-            text: Lab 3  
-
+            text: Midterm  
+          - href: labs/slides/PrettySlides- Copy (2).qmd
+            text: Slides
 
 format:
   html:

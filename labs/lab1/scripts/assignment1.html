@@ -1,0 +1,1608 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.24">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Ixchel">
+<meta name="dcterms.date" content="2025-09-21">
+
+<title>Assignment 1: Census Data Quality for Policy Decisions – Ixchel Ramirez - MUSA 5080 Portfolio</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-e31584831b205ffbb2d98406f31c2a5b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">Ixchel Ramirez - MUSA 5080 Portfolio</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-weekly-notes" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Weekly Notes</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-weekly-notes">    
+        <li>
+    <a class="dropdown-item" href="../../../weekly-notes/week-01-notes.html">
+ <span class="dropdown-text">Week 1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../weekly-notes/week-02-notes.html">
+ <span class="dropdown-text">Week 2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../weekly-notes/week-03-notes.html">
+ <span class="dropdown-text">Week 3</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../weekly-notes/week-04-notes.html">
+ <span class="dropdown-text">Week 4</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../weekly-notes/week-05-notes.html">
+ <span class="dropdown-text">Week 5</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../weekly-notes/week-06-notes.html">
+ <span class="dropdown-text">Week 6</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../weekly-notes/week-07-notes.html">
+ <span class="dropdown-text">Week 7</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-lab" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">lab</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-lab">    
+        <li>
+    <a class="dropdown-item" href="../../../labs/lab1/scripts/assignment1.html">
+ <span class="dropdown-text">Lab 1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../labs/lab_2/Ramirez_Ixchel_Assignment2.html">
+ <span class="dropdown-text">Lab 2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../labs/lab3/Ixchel/Final_Appendix.html">
+ <span class="dropdown-text">Midterm</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../labs/slides/PrettySlides- Copy (2).html">
+ <span class="dropdown-text">Slides</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#assignment-overview" id="toc-assignment-overview" class="nav-link active" data-scroll-target="#assignment-overview">Assignment Overview</a>
+  <ul class="collapse">
+  <li><a href="#scenario" id="toc-scenario" class="nav-link" data-scroll-target="#scenario">Scenario</a></li>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives">Learning Objectives</a></li>
+  <li><a href="#submission-instructions" id="toc-submission-instructions" class="nav-link" data-scroll-target="#submission-instructions">Submission Instructions</a></li>
+  </ul></li>
+  <li><a href="#part-1-portfolio-integration" id="toc-part-1-portfolio-integration" class="nav-link" data-scroll-target="#part-1-portfolio-integration">Part 1: Portfolio Integration</a></li>
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
+  <li><a href="#part-2-county-level-resource-assessment" id="toc-part-2-county-level-resource-assessment" class="nav-link" data-scroll-target="#part-2-county-level-resource-assessment">Part 2: County-Level Resource Assessment</a>
+  <ul class="collapse">
+  <li><a href="#data-retrieval" id="toc-data-retrieval" class="nav-link" data-scroll-target="#data-retrieval">2.1 Data Retrieval</a></li>
+  <li><a href="#data-quality-assessment" id="toc-data-quality-assessment" class="nav-link" data-scroll-target="#data-quality-assessment">2.2 Data Quality Assessment</a></li>
+  <li><a href="#high-uncertainty-counties" id="toc-high-uncertainty-counties" class="nav-link" data-scroll-target="#high-uncertainty-counties">2.3 High Uncertainty Counties</a></li>
+  </ul></li>
+  <li><a href="#part-3-neighborhood-level-analysis" id="toc-part-3-neighborhood-level-analysis" class="nav-link" data-scroll-target="#part-3-neighborhood-level-analysis">Part 3: Neighborhood-Level Analysis</a>
+  <ul class="collapse">
+  <li><a href="#focus-area-selection" id="toc-focus-area-selection" class="nav-link" data-scroll-target="#focus-area-selection">3.1 Focus Area Selection</a></li>
+  <li><a href="#tract-level-demographics" id="toc-tract-level-demographics" class="nav-link" data-scroll-target="#tract-level-demographics">3.2 Tract-Level Demographics</a></li>
+  <li><a href="#demographic-analysis" id="toc-demographic-analysis" class="nav-link" data-scroll-target="#demographic-analysis">3.3 Demographic Analysis</a></li>
+  </ul></li>
+  <li><a href="#part-4-comprehensive-data-quality-evaluation" id="toc-part-4-comprehensive-data-quality-evaluation" class="nav-link" data-scroll-target="#part-4-comprehensive-data-quality-evaluation">Part 4: Comprehensive Data Quality Evaluation</a>
+  <ul class="collapse">
+  <li><a href="#moe-analysis-for-demographic-variables" id="toc-moe-analysis-for-demographic-variables" class="nav-link" data-scroll-target="#moe-analysis-for-demographic-variables">4.1 MOE Analysis for Demographic Variables</a></li>
+  <li><a href="#pattern-analysis" id="toc-pattern-analysis" class="nav-link" data-scroll-target="#pattern-analysis">4.2 Pattern Analysis</a></li>
+  </ul></li>
+  <li><a href="#part-5-policy-recommendations" id="toc-part-5-policy-recommendations" class="nav-link" data-scroll-target="#part-5-policy-recommendations">Part 5: Policy Recommendations</a>
+  <ul class="collapse">
+  <li><a href="#analysis-integration-and-professional-summary" id="toc-analysis-integration-and-professional-summary" class="nav-link" data-scroll-target="#analysis-integration-and-professional-summary">5.1 Analysis Integration and Professional Summary</a></li>
+  <li><a href="#specific-recommendations" id="toc-specific-recommendations" class="nav-link" data-scroll-target="#specific-recommendations">6.3 Specific Recommendations</a></li>
+  <li><a href="#questions-for-further-investigation" id="toc-questions-for-further-investigation" class="nav-link" data-scroll-target="#questions-for-further-investigation">Questions for Further Investigation</a></li>
+  </ul></li>
+  <li><a href="#technical-notes" id="toc-technical-notes" class="nav-link" data-scroll-target="#technical-notes">Technical Notes</a></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Assignment 1: Census Data Quality for Policy Decisions</h1>
+<p class="subtitle lead">Evaluating Data Reliability for Algorithmic Decision-Making</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Ixchel </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 21, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="assignment-overview" class="level1">
+<h1>Assignment Overview</h1>
+<section id="scenario" class="level2">
+<h2 class="anchored" data-anchor-id="scenario">Scenario</h2>
+<p>You are a data analyst for the California Department of Human Services. The department is considering implementing an algorithmic system to identify communities that should receive priority for social service funding and outreach programs. Your supervisor has asked you to evaluate the quality and reliability of available census data to inform this decision.</p>
+<p>Drawing on our Week 2 discussion of algorithmic bias, you need to assess not just what the data shows, but how reliable it is and what communities might be affected by data quality issues.</p>
+</section>
+<section id="learning-objectives" class="level2">
+<h2 class="anchored" data-anchor-id="learning-objectives">Learning Objectives</h2>
+<ul>
+<li>Apply dplyr functions to real census data for policy analysis</li>
+<li>Evaluate data quality using margins of error</li>
+<li>Connect technical analysis to algorithmic decision-making</li>
+<li>Identify potential equity implications of data reliability issues</li>
+<li>Create professional documentation for policy stakeholders</li>
+</ul>
+</section>
+<section id="submission-instructions" class="level2">
+<h2 class="anchored" data-anchor-id="submission-instructions">Submission Instructions</h2>
+<p><strong>Submit by posting your updated portfolio link on Canvas.</strong> Your assignment should be accessible at <code>your-portfolio-url/assignments/assignment_1/</code></p>
+<p>Make sure to update your <code>_quarto.yml</code> navigation to include this assignment under an “Assignments” menu.</p>
+</section>
+</section>
+<section id="part-1-portfolio-integration" class="level1">
+<h1>Part 1: Portfolio Integration</h1>
+<p>Create this assignment in your portfolio repository under an <code>assignments/assignment_1/</code> folder structure. Update your navigation menu to include:</p>
+<pre><code>- text: Assignments
+  menu:
+    - href: assignments/assignment_1/your_file_name.qmd
+      text: "Assignment 1: Census Data Exploration"</code></pre>
+<p>If there is a special character like comma, you need use double quote mark so that the quarto can identify this as text</p>
+</section>
+<section id="setup" class="level1">
+<h1>Setup</h1>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load required packages (hint: you need tidycensus, tidyverse, and knitr)</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidycensus)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Choose your state for analysis - assign it to a variable called my_state</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>my_state <span class="ot">&lt;-</span> <span class="st">"California"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>State Selection:</strong> I have chosen California for this analysis because I am from California and want to look more the state’s census data.</p>
+</section>
+<section id="part-2-county-level-resource-assessment" class="level1">
+<h1>Part 2: County-Level Resource Assessment</h1>
+<section id="data-retrieval" class="level2">
+<h2 class="anchored" data-anchor-id="data-retrieval">2.1 Data Retrieval</h2>
+<p><strong>Your Task:</strong> Use <code>get_acs()</code> to retrieve county-level data for your chosen state.</p>
+<p><strong>Requirements:</strong> - Geography: county level - Variables: median household income (B19013_001) and total population (B01003_001)<br>
+- Year: 2022 - Survey: acs5 - Output format: wide</p>
+<p><strong>Hint:</strong> Remember to give your variables descriptive names using the <code>variables = c(name = "code")</code> syntax.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your get_acs() code here</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>my_state <span class="ot">&lt;-</span> <span class="fu">get_acs</span>(</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">geography =</span> <span class="st">"county"</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">variables =</span> <span class="fu">c</span>(<span class="at">MedianHouseholdIncome =</span> <span class="st">"B19013_001"</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">TotalPopulation =</span> <span class="st">"B01003_001"</span>),</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">year =</span> <span class="dv">2022</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">output =</span> <span class="st">"wide"</span>,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">geometry =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">state =</span> <span class="st">"CA"</span>,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">survey =</span> <span class="st">"acs5"</span>,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">progress =</span> <span class="cn">FALSE</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Clean the county names to remove state name and "County" </span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Hint: use mutate() with str_remove()</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>my_state <span class="ot">&lt;-</span> my_state <span class="sc">%&gt;%</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="at">NAME =</span> <span class="fu">str_remove</span>(NAME, <span class="st">" County, California"</span>)</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the first few rows</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(my_state)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Simple feature collection with 6 features and 6 fields
+Geometry type: MULTIPOLYGON
+Dimension:     XY
+Bounding box:  xmin: -124.256 ymin: 32.80146 xmax: -117.6464 ymax: 42.00076
+Geodetic CRS:  NAD83
+  GEOID        NAME MedianHouseholdIncomeE MedianHouseholdIncomeM
+1 06037 Los Angeles                  83411                    439
+2 06097      Sonoma                  99266                   1988
+3 06001     Alameda                 122488                   1231
+4 06045   Mendocino                  61335                   2198
+5 06015   Del Norte                  61149                   4376
+6 06055        Napa                 105809                   2981
+  TotalPopulationE TotalPopulationM                       geometry
+1          9936690               NA MULTIPOLYGON (((-118.6044 3...
+2           488436               NA MULTIPOLYGON (((-123.5335 3...
+3          1663823               NA MULTIPOLYGON (((-122.3423 3...
+4            91145               NA MULTIPOLYGON (((-124.0233 4...
+5            27462               NA MULTIPOLYGON (((-124.2175 4...
+6           137384               NA MULTIPOLYGON (((-122.6466 3...</code></pre>
+</div>
+</div>
+</section>
+<section id="data-quality-assessment" class="level2">
+<h2 class="anchored" data-anchor-id="data-quality-assessment">2.2 Data Quality Assessment</h2>
+<p><strong>Your Task:</strong> Calculate margin of error percentages and create reliability categories.</p>
+<p><strong>Requirements:</strong> - Calculate MOE percentage: (margin of error / estimate) * 100 - Create reliability categories: - High Confidence: MOE &lt; 5% - Moderate Confidence: MOE 5-10%<br>
+- Low Confidence: MOE &gt; 10% - Create a flag for unreliable estimates (MOE &gt; 10%)</p>
+<p><strong>Hint:</strong> Use <code>mutate()</code> with <code>case_when()</code> for the categories.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate MOE percentage and reliability categories using mutate()</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>my_state <span class="ot">&lt;-</span> my_state <span class="sc">%&gt;%</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="at">MOE_PCT =</span> (MedianHouseholdIncomeM <span class="sc">/</span> MedianHouseholdIncomeE) <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="at">reliability =</span> <span class="fu">case_when</span>(</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>MOE_PCT <span class="sc">&lt;</span> <span class="dv">5</span> <span class="sc">~</span> <span class="st">"High Confidence"</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>MOE_PCT <span class="sc">&gt;=</span> <span class="dv">5</span> <span class="sc">&amp;</span> MOE_PCT <span class="sc">&lt;=</span> <span class="dv">10</span> <span class="sc">~</span> <span class="st">"Moderate Confidence"</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>MOE_PCT <span class="sc">&gt;</span> <span class="dv">10</span> <span class="sc">~</span> <span class="st">"Low Confidence"</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>),</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="at">unreliable =</span> MOE_PCT <span class="sc">&gt;</span> <span class="dv">10</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a summary showing count of counties in each reliability category</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Hint: use count() and mutate() to add percentages</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>summary_reliability <span class="ot">&lt;-</span> my_state <span class="sc">%&gt;%</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(reliability) <span class="sc">%&gt;%</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent =</span> (n <span class="sc">/</span> <span class="fu">sum</span>(n)) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="high-uncertainty-counties" class="level2">
+<h2 class="anchored" data-anchor-id="high-uncertainty-counties">2.3 High Uncertainty Counties</h2>
+<p><strong>Your Task:</strong> Identify the 5 counties with the highest MOE percentages.</p>
+<p><strong>Requirements:</strong> - Sort by MOE percentage (highest first) - Select the top 5 counties - Display: county name, median income, margin of error, MOE percentage, reliability category - Format as a professional table using <code>kable()</code></p>
+<p><strong>Hint:</strong> Use <code>arrange()</code>, <code>slice()</code>, and <code>select()</code> functions.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create table of top 5 counties by MOE percentage</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>Top_MOE_Counties <span class="ot">&lt;-</span> my_state <span class="sc">%&gt;%</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(MOE_PCT)) <span class="sc">%&gt;%</span>              <span class="co"># sort by MOE percentage, highest first</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n=</span><span class="dv">5</span>) <span class="sc">%&gt;%</span>                          <span class="co"># select top 5 counties</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">County =</span> NAME,                        <span class="co"># county name</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Median Income</span><span class="st">`</span> <span class="ot">=</span> MedianHouseholdIncomeE,</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Margin of Error</span><span class="st">`</span> <span class="ot">=</span> MedianHouseholdIncomeM,</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">MOE Percentage</span><span class="st">`</span> <span class="ot">=</span> MOE_PCT,                              <span class="co"># MOE percentage</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">reliability category</span><span class="st">`</span> <span class="ot">=</span> reliability                           <span class="co"># reliability category</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Format as table with kable() - include appropriate column names and caption</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(Top_MOE_Counties, <span class="at">digits =</span> <span class="dv">2</span>, <span class="at">caption =</span> <span class="st">"Top 5 Counties by Margin of Error Percentage"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Top 5 Counties by Margin of Error Percentage</caption>
+<colgroup>
+<col style="width: 7%">
+<col style="width: 13%">
+<col style="width: 15%">
+<col style="width: 14%">
+<col style="width: 20%">
+<col style="width: 29%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">County</th>
+<th style="text-align: right;">Median Income</th>
+<th style="text-align: right;">Margin of Error</th>
+<th style="text-align: right;">MOE Percentage</th>
+<th style="text-align: left;">reliability category</th>
+<th style="text-align: left;">geometry</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Mono</td>
+<td style="text-align: right;">82038</td>
+<td style="text-align: right;">15388</td>
+<td style="text-align: right;">18.76</td>
+<td style="text-align: left;">Low Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-119.6489 3…</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Alpine</td>
+<td style="text-align: right;">101125</td>
+<td style="text-align: right;">17442</td>
+<td style="text-align: right;">17.25</td>
+<td style="text-align: left;">Low Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-120.0724 3…</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Sierra</td>
+<td style="text-align: right;">61108</td>
+<td style="text-align: right;">9237</td>
+<td style="text-align: right;">15.12</td>
+<td style="text-align: left;">Low Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-121.0575 3…</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Trinity</td>
+<td style="text-align: right;">47317</td>
+<td style="text-align: right;">5890</td>
+<td style="text-align: right;">12.45</td>
+<td style="text-align: left;">Low Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-123.6224 4…</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Plumas</td>
+<td style="text-align: right;">67885</td>
+<td style="text-align: right;">7772</td>
+<td style="text-align: right;">11.45</td>
+<td style="text-align: left;">Low Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-121.497 40…</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><strong>Data Quality Commentary:</strong> Finding the counties with the highest margin of error and thus low confidence means that they might be excluded from decision-making because there is more uncertainty. Counties that could be poorly served through these algorithms that rely on income data are areas that have a large range or where there is a smaller sample population which is the case for most of these counties. This could result in the areas being disregarded or grouped with other similar incomes even though there is variance.</p>
+</section>
+</section>
+<section id="part-3-neighborhood-level-analysis" class="level1">
+<h1>Part 3: Neighborhood-Level Analysis</h1>
+<section id="focus-area-selection" class="level2">
+<h2 class="anchored" data-anchor-id="focus-area-selection">3.1 Focus Area Selection</h2>
+<p><strong>Your Task:</strong> Select 2-3 counties from your reliability analysis for detailed tract-level study.</p>
+<p><strong>Strategy:</strong> Choose counties that represent different reliability levels (e.g., 1 high confidence, 1 moderate, 1 low confidence) to compare how data quality varies.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use filter() to select 2-3 counties from your county_reliability data</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Store the selected counties in a variable called selected_counties</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the selected counties with their key characteristics</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Show: county name, median income, MOE percentage, reliability category</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>selected_counties <span class="ot">&lt;-</span> my_state <span class="sc">%&gt;%</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(reliability) <span class="sc">%&gt;%</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">County Name</span><span class="st">`</span> <span class="ot">=</span> NAME,</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">Median Income</span><span class="st">`</span> <span class="ot">=</span> MedianHouseholdIncomeE,</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">MOE percentage</span><span class="st">`</span> <span class="ot">=</span> MOE_PCT,</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">reliability category</span><span class="st">`</span> <span class="ot">=</span> reliability</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Comment on the output:</strong> The three counties that were selected vary in reliability levels. Del Norte and Plumas are counties that are located in Northern California while Los Angeles is the only county that represents Southern California. The code is only based on reliability levels and not where the counties are in relationship to one another.</p>
+</section>
+<section id="tract-level-demographics" class="level2">
+<h2 class="anchored" data-anchor-id="tract-level-demographics">3.2 Tract-Level Demographics</h2>
+<p><strong>Your Task:</strong> Get demographic data for census tracts in your selected counties.</p>
+<p><strong>Requirements:</strong> - Geography: tract level - Variables: white alone (B03002_003), Black/African American (B03002_004), Hispanic/Latino (B03002_012), total population (B03002_001) - Use the same state and year as before - Output format: wide - <strong>Challenge:</strong> You’ll need county codes, not names. Look at the GEOID patterns in your county data for hints.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define your race/ethnicity variables with descriptive names</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Use get_acs() to retrieve tract-level data</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Hint: You may need to specify county codes in the county parameter</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>my_tracts <span class="ot">&lt;-</span> <span class="fu">get_acs</span>(<span class="at">geography =</span> <span class="st">"tract"</span>,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">variables =</span> <span class="fu">c</span>(<span class="at">whiteAlone =</span> <span class="st">"B03002_003"</span>,</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">`</span><span class="at">Black/African American</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"B03002_004"</span>,</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">`</span><span class="at">Hispanic/Latino</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"B03002_012"</span>,</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">totalPopulation =</span> <span class="st">"B03002_001"</span>),</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>                     <span class="at">year =</span> <span class="dv">2022</span>,</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>                     <span class="at">output =</span> <span class="st">"wide"</span>,</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>                     <span class="at">geometry =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>                     <span class="at">state =</span> <span class="st">"CA"</span>,</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>                     <span class="at">county =</span> <span class="fu">c</span>(<span class="st">"037"</span>, <span class="st">"063"</span>, <span class="st">"015"</span>),</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>                     <span class="at">survey =</span> <span class="st">"acs5"</span>,</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>                     <span class="at">progress =</span> <span class="cn">FALSE</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate percentage of each group using mutate()</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Create percentages for white, Black, and Hispanic populations</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Add readable tract and county name columns using str_extract() or similar</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>my_tracts <span class="ot">&lt;-</span> my_tracts <span class="sc">%&gt;%</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">White_PCT =</span> (whiteAloneE<span class="sc">/</span>totalPopulationE)<span class="sc">*</span><span class="dv">100</span>,</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">Black_PCT =</span> (<span class="st">`</span><span class="at">Black/African AmericanE</span><span class="st">`</span><span class="sc">/</span>totalPopulationE)<span class="sc">*</span><span class="dv">100</span>,</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">Hispanic_PCT =</span> (<span class="st">`</span><span class="at">Hispanic/LatinoE</span><span class="st">`</span><span class="sc">/</span>totalPopulationE)<span class="sc">*</span><span class="dv">100</span>,</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">tract_name  =</span> <span class="fu">str_trim</span>(<span class="fu">str_extract</span>(NAME, <span class="st">"^[^;]+"</span>)),</span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">county_name =</span> <span class="fu">str_trim</span>(<span class="fu">str_extract</span>(NAME, <span class="st">"(?&lt;=; ).+?(?=;)"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">str_remove</span>(<span class="st">" County$"</span>)</span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="demographic-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="demographic-analysis">3.3 Demographic Analysis</h2>
+<p><strong>Your Task:</strong> Analyze the demographic patterns in your selected areas.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find the tract with the highest percentage of Hispanic/Latino residents</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Hint: use arrange() and slice() to get the top tract</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>Tract_Pct_Hispanic <span class="ot">&lt;-</span> my_tracts <span class="sc">%&gt;%</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Hispanic_PCT)) <span class="sc">%&gt;%</span>              <span class="co"># sort by MOE percentage, highest first</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate average demographics by county using group_by() and summarize()</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Show: number of tracts, average percentage for each racial/ethnic group</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>avg_demographics <span class="ot">&lt;-</span> my_tracts <span class="sc">%&gt;%</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(county_name) <span class="sc">%&gt;%</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">n_tracts =</span> <span class="fu">n</span>(),</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">avg_white_pop =</span> <span class="fu">mean</span>(White_PCT, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">avg_black_pop =</span> <span class="fu">mean</span>(Black_PCT, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">avg_Hispanic_pop =</span> <span class="fu">mean</span>(Hispanic_PCT, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a nicely formatted table of your results using kable()</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(avg_demographics, <span class="at">digits =</span> <span class="dv">1</span>,</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>      <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"County"</span>, <span class="st">"Number of Tracts"</span>,</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"Avg. White %"</span>, <span class="st">"Avg. Black %"</span>, <span class="st">"Avg. Hispanic %"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 23%">
+<col style="width: 18%">
+<col style="width: 18%">
+<col style="width: 22%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">County</th>
+<th style="text-align: right;">Number of Tracts</th>
+<th style="text-align: right;">Avg. White %</th>
+<th style="text-align: right;">Avg. Black %</th>
+<th style="text-align: right;">Avg. Hispanic %</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Del Norte</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">59.5</td>
+<td style="text-align: right;">2.2</td>
+<td style="text-align: right;">19.6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Los Angeles</td>
+<td style="text-align: right;">2498</td>
+<td style="text-align: right;">26.3</td>
+<td style="text-align: right;">7.6</td>
+<td style="text-align: right;">47.6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Plumas</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">85.2</td>
+<td style="text-align: right;">0.6</td>
+<td style="text-align: right;">8.6</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</section>
+<section id="part-4-comprehensive-data-quality-evaluation" class="level1">
+<h1>Part 4: Comprehensive Data Quality Evaluation</h1>
+<section id="moe-analysis-for-demographic-variables" class="level2">
+<h2 class="anchored" data-anchor-id="moe-analysis-for-demographic-variables">4.1 MOE Analysis for Demographic Variables</h2>
+<p><strong>Your Task:</strong> Examine margins of error for demographic variables to see if some communities have less reliable data.</p>
+<p><strong>Requirements:</strong> - Calculate MOE percentages for each demographic variable - Flag tracts where any demographic variable has MOE &gt; 15% - Create summary statistics</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate MOE percentages for white, Black, and Hispanic variables</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Hint: use the same formula as before (margin/estimate * 100)</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>my_tracts<span class="ot">&lt;-</span> my_tracts <span class="sc">%&gt;%</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">White_MOE_PCT =</span> (whiteAloneM <span class="sc">/</span> whiteAloneE) <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">Black_MOE_PCT =</span> (<span class="st">`</span><span class="at">Black/African AmericanM</span><span class="st">`</span> <span class="sc">/</span> <span class="st">`</span><span class="at">Black/African AmericanE</span><span class="st">`</span>) <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">Hispanic_MOE_PCT =</span> (<span class="st">`</span><span class="at">Hispanic/LatinoM</span><span class="st">`</span> <span class="sc">/</span> <span class="st">`</span><span class="at">Hispanic/LatinoE</span><span class="st">`</span>) <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a> <span class="at">reliability =</span> <span class="fu">case_when</span>(</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>      White_MOE_PCT <span class="sc">&lt;</span> <span class="dv">5</span> <span class="sc">&amp;</span> Black_MOE_PCT <span class="sc">&lt;</span> <span class="dv">5</span> <span class="sc">&amp;</span> Hispanic_MOE_PCT <span class="sc">&lt;</span> <span class="dv">5</span> <span class="sc">~</span> <span class="st">"High Confidence"</span>,</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>      White_MOE_PCT <span class="sc">&gt;</span> <span class="dv">10</span> <span class="sc">|</span> Black_MOE_PCT <span class="sc">&gt;</span> <span class="dv">10</span> <span class="sc">|</span> Hispanic_MOE_PCT <span class="sc">&gt;</span> <span class="dv">10</span> <span class="sc">~</span> <span class="st">"Low Confidence"</span>,</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Moderate Confidence"</span> <span class="co">#if none of the previous conditions are met, assign this value </span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Flag: TRUE if any MOE &gt; 10</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">flag =</span> <span class="fu">ifelse</span>(</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>      White_MOE_PCT <span class="sc">&gt;</span> <span class="dv">10</span> <span class="sc">|</span> Black_MOE_PCT <span class="sc">&gt;</span> <span class="dv">10</span> <span class="sc">|</span> Hispanic_MOE_PCT <span class="sc">&gt;</span> <span class="dv">10</span>,</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a flag for tracts with high MOE on any demographic variable</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Use logical operators (| for OR) in an ifelse() statement</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Create summary statistics showing how many tracts have data quality issues</span></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>tract_summary_stat <span class="ot">&lt;-</span> my_tracts <span class="sc">%&gt;%</span></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">total_tracts =</span> <span class="fu">n</span>(),</span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">tracts_with_high_MOE =</span> <span class="fu">sum</span>(flag, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">percent_high_MOE =</span> (tracts_with_high_MOE <span class="sc">/</span> total_tracts) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="pattern-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="pattern-analysis">4.2 Pattern Analysis</h2>
+<p><strong>Your Task:</strong> Investigate whether data quality problems are randomly distributed or concentrated in certain types of communities.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Group tracts by whether they have high MOE issues</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate average characteristics for each group:</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># - population size, demographic percentages</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Use group_by() and summarize() to create this comparison</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a professional table showing the patterns</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>pattern_analysis <span class="ot">&lt;-</span> my_tracts <span class="sc">%&gt;%</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(flag)<span class="sc">%&gt;%</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">totalPopulationE=</span> <span class="fu">sum</span>(totalPopulationE, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">avg_white_pct =</span> <span class="fu">mean</span>(White_PCT, <span class="at">na.rm =</span> <span class="cn">TRUE</span> ), </span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>            <span class="at">avg_black_pct =</span> <span class="fu">mean</span>(Black_PCT, <span class="at">na.rm =</span> <span class="cn">TRUE</span> ),</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>            <span class="at">avg_hispanic_pct =</span> <span class="fu">mean</span>(Hispanic_PCT, <span class="at">na.rm =</span> <span class="cn">TRUE</span> ),</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>            <span class="at">n_tracts =</span> <span class="fu">n</span>()</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Pattern Analysis:</strong> Everything has data quality issues and therefore, there is no demographic pattern that can be discerned.</p>
+</section>
+</section>
+<section id="part-5-policy-recommendations" class="level1">
+<h1>Part 5: Policy Recommendations</h1>
+<section id="analysis-integration-and-professional-summary" class="level2">
+<h2 class="anchored" data-anchor-id="analysis-integration-and-professional-summary">5.1 Analysis Integration and Professional Summary</h2>
+<p><strong>Executive Summary:</strong></p>
+<p>This analysis evaluated the reliability of American Community Survey (ACS) data for California counties and census tracts to inform the Department’s potential use of algorithmic systems in allocating social service funding. According to the state analysis, the majority of the counties (72%) have a high confidence of reliability with margins of error (MOE) below 5%. There are only 5 counties (9%) with low confidence of reliability as defined as having MOE above 10%. These 5 counties are Mono, Alpine, Sierra, Trinity and Plumas and indicate greater uncertainty in income estimates in rural locations. On the tract level all the tracts had low confidence because at least one of the racial demographic groups had a MOE above 10%. From an equity perspective, these data quality issues pose a serious risk of algorithmic bias. High MOE is frequently present in rural, sparsely populated, or demographically diverse areas, which means these communities are more likely to be flagged as unreliable. This could lead to their exclusion or underrepresentation in automated decision-making. The data for California follows this pattern as Mono, Alpine, Sierra and Trinity are within the top five least populous counties in California. Trinity, which is the 5th least populous county, does not have an incorporated city which could make it hard to collect demographic population as the population is even more dispersed. In contrast, larger urban counties, such as Los Angeles, benefit from lower MOEs and thus are more likely prioritized in algorithmic decisions. This risks reinforcing existing disparities between larger metropolitan regions and rural communities with regards to allocation of resources and services due to the limitations of reliable data.</p>
+<p>The underlying factors that cause these issues stem from the ACS’s sampling design. The ACS relies on sampling, thus counties and tracts with smaller populations generate less precise estimates since fewer households are surveyed which inflates margins of error. Demographic subgroups such as Black and Hispanic residents are particularly affected at the tract level, where margins of error often exceed 15%. As a result, structural features of the survey produce uneven levels of statistical confidence across communities. If left unaddressed, these disparities can directly translate into biased outcomes when using data in automated systems.</p>
+<p>To mitigate these risks, the Department should adopt a tiered oversight approach. In high confidence counties, algorithmic use is appropriate if outputs are reviewed on a regular basis. In moderate confidence areas, algorithmic outputs can be paired with human review to ensure accuracy and fairness. In low confidence areas, decisions should not be automated; instead, an expert can guide decisions, or the data can be supplemented with additional administrative data. Across all confidence levels, the Department should implement equity audits, establish transparent documentation of MOE thresholds, and cross-validate ACS estimates with state and local records. This combination of algorithmic efficiency and structured oversight would enable the Department to take advantage of automation while safeguarding equitable treatment across California communities.</p>
+</section>
+<section id="specific-recommendations" class="level2">
+<h2 class="anchored" data-anchor-id="specific-recommendations">6.3 Specific Recommendations</h2>
+<p><strong>Your Task:</strong> Create a decision framework for algorithm implementation.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a summary table using your county reliability data</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Include: county name, median income, MOE percentage, reliability category</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a new column with algorithm recommendations using case_when():</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># - High Confidence: "Safe for algorithmic decisions"</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># - Moderate Confidence: "Use with caution - monitor outcomes"  </span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co"># - Low Confidence: "Requires manual review or additional data"</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>summary_county_reliability <span class="ot">&lt;-</span> my_state <span class="sc">%&gt;%</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">algorithmic_decisions =</span> <span class="fu">case_when</span>(</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    reliability <span class="sc">==</span> <span class="st">"High Confidence"</span> <span class="sc">~</span> <span class="st">"Safe for algorithmic decisions"</span>,</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    reliability <span class="sc">==</span> <span class="st">"Moderate Confidence"</span> <span class="sc">~</span> <span class="st">"Use with caution - monitor outcomes"</span>,</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>    reliability <span class="sc">==</span> <span class="st">"Low Confidence"</span> <span class="sc">~</span> <span class="st">"Requires manual review or additional data"</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>           )) <span class="sc">%&gt;%</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(NAME,MedianHouseholdIncomeE, MOE_PCT,reliability)</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Format as a professional table with kable()</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(summary_county_reliability, <span class="at">caption =</span> <span class="st">"County Reliability and Algorithmic Recommendations"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>County Reliability and Algorithmic Recommendations</caption>
+<colgroup>
+<col style="width: 15%">
+<col style="width: 22%">
+<col style="width: 10%">
+<col style="width: 19%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">NAME</th>
+<th style="text-align: right;">MedianHouseholdIncomeE</th>
+<th style="text-align: right;">MOE_PCT</th>
+<th style="text-align: left;">reliability</th>
+<th style="text-align: left;">geometry</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Los Angeles</td>
+<td style="text-align: right;">83411</td>
+<td style="text-align: right;">0.5263095</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-118.6044 3…</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Sonoma</td>
+<td style="text-align: right;">99266</td>
+<td style="text-align: right;">2.0026998</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-123.5335 3…</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Alameda</td>
+<td style="text-align: right;">122488</td>
+<td style="text-align: right;">1.0049964</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-122.3423 3…</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Mendocino</td>
+<td style="text-align: right;">61335</td>
+<td style="text-align: right;">3.5835983</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-124.0233 4…</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Del Norte</td>
+<td style="text-align: right;">61149</td>
+<td style="text-align: right;">7.1562904</td>
+<td style="text-align: left;">Moderate Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-124.2175 4…</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Napa</td>
+<td style="text-align: right;">105809</td>
+<td style="text-align: right;">2.8173407</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-122.6466 3…</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Plumas</td>
+<td style="text-align: right;">67885</td>
+<td style="text-align: right;">11.4487737</td>
+<td style="text-align: left;">Low Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-121.497 40…</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Sutter</td>
+<td style="text-align: right;">72654</td>
+<td style="text-align: right;">4.7141245</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-121.9483 3…</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Glenn</td>
+<td style="text-align: right;">64033</td>
+<td style="text-align: right;">6.1889963</td>
+<td style="text-align: left;">Moderate Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-122.938 39…</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Amador</td>
+<td style="text-align: right;">74853</td>
+<td style="text-align: right;">8.0798365</td>
+<td style="text-align: left;">Moderate Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-121.0274 3…</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Shasta</td>
+<td style="text-align: right;">68347</td>
+<td style="text-align: right;">3.6285426</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-123.0688 4…</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Santa Barbara</td>
+<td style="text-align: right;">92332</td>
+<td style="text-align: right;">2.0458779</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-119.047 33…</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ventura</td>
+<td style="text-align: right;">102141</td>
+<td style="text-align: right;">1.4959713</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-119.3745 3…</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Imperial</td>
+<td style="text-align: right;">53847</td>
+<td style="text-align: right;">4.1116497</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-116.1063 3…</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Riverside</td>
+<td style="text-align: right;">84505</td>
+<td style="text-align: right;">1.2555470</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-117.6767 3…</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Mono</td>
+<td style="text-align: right;">82038</td>
+<td style="text-align: right;">18.7571613</td>
+<td style="text-align: left;">Low Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-119.6489 3…</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Humboldt</td>
+<td style="text-align: right;">57881</td>
+<td style="text-align: right;">3.6816917</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-124.4086 4…</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Siskiyou</td>
+<td style="text-align: right;">53898</td>
+<td style="text-align: right;">4.8981409</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-123.7184 4…</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Madera</td>
+<td style="text-align: right;">73543</td>
+<td style="text-align: right;">3.8671254</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-120.5455 3…</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Merced</td>
+<td style="text-align: right;">64772</td>
+<td style="text-align: right;">3.3069845</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-121.2485 3…</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Tehama</td>
+<td style="text-align: right;">59029</td>
+<td style="text-align: right;">6.9508208</td>
+<td style="text-align: left;">Moderate Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-123.0654 4…</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Yuba</td>
+<td style="text-align: right;">66693</td>
+<td style="text-align: right;">4.1923440</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-121.6363 3…</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Mariposa</td>
+<td style="text-align: right;">60021</td>
+<td style="text-align: right;">8.8185802</td>
+<td style="text-align: left;">Moderate Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-120.3944 3…</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">San Diego</td>
+<td style="text-align: right;">96974</td>
+<td style="text-align: right;">1.0239858</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-117.596 33…</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">San Mateo</td>
+<td style="text-align: right;">149907</td>
+<td style="text-align: right;">1.7484174</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-122.5209 3…</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Sierra</td>
+<td style="text-align: right;">61108</td>
+<td style="text-align: right;">15.1158604</td>
+<td style="text-align: left;">Low Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-121.0575 3…</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">El Dorado</td>
+<td style="text-align: right;">99246</td>
+<td style="text-align: right;">3.3552990</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-121.1416 3…</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Butte</td>
+<td style="text-align: right;">66085</td>
+<td style="text-align: right;">3.4213513</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-122.0687 3…</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Tuolumne</td>
+<td style="text-align: right;">70432</td>
+<td style="text-align: right;">6.6603249</td>
+<td style="text-align: left;">Moderate Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-120.6532 3…</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Colusa</td>
+<td style="text-align: right;">69619</td>
+<td style="text-align: right;">8.2520576</td>
+<td style="text-align: left;">Moderate Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-122.7851 3…</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Orange</td>
+<td style="text-align: right;">109361</td>
+<td style="text-align: right;">0.8065032</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-118.1146 3…</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Marin</td>
+<td style="text-align: right;">142019</td>
+<td style="text-align: right;">2.8855294</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-122.4463 3…</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Santa Clara</td>
+<td style="text-align: right;">153792</td>
+<td style="text-align: right;">1.0046036</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-122.2027 3…</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">San Joaquin</td>
+<td style="text-align: right;">82837</td>
+<td style="text-align: right;">1.7480112</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-121.5847 3…</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Fresno</td>
+<td style="text-align: right;">67756</td>
+<td style="text-align: right;">1.4271799</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-120.9094 3…</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Monterey</td>
+<td style="text-align: right;">91043</td>
+<td style="text-align: right;">2.0869260</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-121.9766 3…</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Contra Costa</td>
+<td style="text-align: right;">120020</td>
+<td style="text-align: right;">1.2464589</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-122.4298 3…</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Lake</td>
+<td style="text-align: right;">56259</td>
+<td style="text-align: right;">4.3353064</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-123.0942 3…</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">San Luis Obispo</td>
+<td style="text-align: right;">90158</td>
+<td style="text-align: right;">2.5632778</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-121.3464 3…</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Nevada</td>
+<td style="text-align: right;">79395</td>
+<td style="text-align: right;">4.8151647</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-121.2797 3…</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Santa Cruz</td>
+<td style="text-align: right;">104409</td>
+<td style="text-align: right;">3.0390100</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-122.3177 3…</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Tulare</td>
+<td style="text-align: right;">64474</td>
+<td style="text-align: right;">2.3094581</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-119.5665 3…</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Yolo</td>
+<td style="text-align: right;">85097</td>
+<td style="text-align: right;">2.7415773</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-122.4215 3…</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">San Benito</td>
+<td style="text-align: right;">104451</td>
+<td style="text-align: right;">5.2282889</td>
+<td style="text-align: left;">Moderate Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-121.644 36…</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Calaveras</td>
+<td style="text-align: right;">77526</td>
+<td style="text-align: right;">4.9983231</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-120.9936 3…</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Solano</td>
+<td style="text-align: right;">97037</td>
+<td style="text-align: right;">1.7766419</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-122.4035 3…</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Stanislaus</td>
+<td style="text-align: right;">74872</td>
+<td style="text-align: right;">1.8311251</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-121.4868 3…</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">San Francisco</td>
+<td style="text-align: right;">136689</td>
+<td style="text-align: right;">1.4295225</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-122.3316 3…</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Inyo</td>
+<td style="text-align: right;">63417</td>
+<td style="text-align: right;">8.5986407</td>
+<td style="text-align: left;">Moderate Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-118.79 37….</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Placer</td>
+<td style="text-align: right;">109375</td>
+<td style="text-align: right;">1.6969143</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-121.4844 3…</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Lassen</td>
+<td style="text-align: right;">59515</td>
+<td style="text-align: right;">5.9665631</td>
+<td style="text-align: left;">Moderate Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-121.3319 4…</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Kern</td>
+<td style="text-align: right;">63883</td>
+<td style="text-align: right;">2.0741042</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-120.1944 3…</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Trinity</td>
+<td style="text-align: right;">47317</td>
+<td style="text-align: right;">12.4479574</td>
+<td style="text-align: left;">Low Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-123.6224 4…</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Kings</td>
+<td style="text-align: right;">68540</td>
+<td style="text-align: right;">3.2871316</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-120.3151 3…</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Sacramento</td>
+<td style="text-align: right;">84010</td>
+<td style="text-align: right;">0.9713129</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-121.8625 3…</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">San Bernardino</td>
+<td style="text-align: right;">77423</td>
+<td style="text-align: right;">1.0410343</td>
+<td style="text-align: left;">High Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-117.8025 3…</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Alpine</td>
+<td style="text-align: right;">101125</td>
+<td style="text-align: right;">17.2479604</td>
+<td style="text-align: left;">Low Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-120.0724 3…</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Modoc</td>
+<td style="text-align: right;">54962</td>
+<td style="text-align: right;">9.8049562</td>
+<td style="text-align: left;">Moderate Confidence</td>
+<td style="text-align: left;">MULTIPOLYGON (((-121.4572 4…</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><strong>Key Recommendations:</strong></p>
+<p><strong>Your Task:</strong> Use your analysis results to provide specific guidance to the department.</p>
+<ol type="1">
+<li><strong>Counties suitable for immediate algorithmic implementation:</strong></li>
+</ol>
+<p>Los Angeles Sonoma Alameda Mendocino Napa Sutter Shasta Santa Barbara Ventura Imperial Riverside Humboldt Siskiyou Madera Merced Yuba San Diego San Mateo El Dorado Butte Orange Marin Santa Clara San Joaquin Fresno Monterey Contra Costa Lake San Luis Obispo Nevada Santa Cruz Tulare Yolo Calaveras Solano Stanislaus San Francisco Placer Kern Kings Sacramento San Bernardino</p>
+<p>The list of counties above have high confidence data which means their margin of error is small relative to the estimate so the reported median income is close to the true value. The median income being close to the true value means that they can be integrated into automated decision-making processes without distorting the results due to high margins of error</p>
+<ol start="2" type="1">
+<li><strong>Counties requiring additional oversight:</strong></li>
+</ol>
+<p>Del Norte Glenn Amador Tehama Mariposa Tuolumne Colusa San Benito Inyo Lassen Modoc</p>
+<p>Monitoring needed for the above counties, which fall under the category of moderate confidence data might include tracking how algorithmic outputs impact policy or services, testing the upper and lower bounds of MOE for the moderate confidence level and having partial human review to understand what the potential outcomes and impacts could be of using these data.</p>
+<ol start="3" type="1">
+<li><strong>Counties needing alternative approaches:</strong></li>
+</ol>
+<p>Plumas Mono Sierra Trinity Alpine</p>
+<p>The above counties need alternative approaches due to high margin of error which means the data is unreliable and should not be implemented into automated decisions. Alternatives for these counties include manual review which is when experts who are familiar with the county will handle the counties individually. Additional surveys such as regional surveys could be combined with ACS data to decrease the margin of error.</p>
+</section>
+<section id="questions-for-further-investigation" class="level2">
+<h2 class="anchored" data-anchor-id="questions-for-further-investigation">Questions for Further Investigation</h2>
+<p>Two questions that arose were choosing counties that spatially represent an area. When I selected counties two were from Northern California and one was from Southern California, but this was just due to the order the counties were arranged in, how could the code be refined to ensure that counties throughout California are always included? This is an important consideration for California because it is a large state.</p>
+<p>Are there any age demographic patterns? When looking at race no patterns were identified due to the high margins of error, is this also the case for age demographics?</p>
+</section>
+</section>
+<section id="technical-notes" class="level1">
+<h1>Technical Notes</h1>
+<p><strong>Data Sources:</strong> - U.S. Census Bureau, American Community Survey 2018-2022 5-Year Estimates - Retrieved via tidycensus R package on 9/21/25 and 9/28/25</p>
+<p><strong>Reproducibility:</strong> - All analysis conducted in R version 2025.09.0+387 - Census API key required for replication - Complete code and documentation available at:</p>
+<p><strong>Methodology Notes:</strong> - If one changes the thresholds for MOE then it will result in different reliability and thus different county selections.</p>
+<p><strong>Limitations:</strong> - When looking at the racial demographics everything has data quality issues. —</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

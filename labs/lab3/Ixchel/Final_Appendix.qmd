@@ -1,16 +1,14 @@
 ---
-title: "Philadelphia Housing Model - Technical Appendix"
+title: "Philadelphia Housing Model Technical Appendix"
 author: "Ixchel Ramirez"
-contributors: "Angel, Cathy, Yanyang and Qianmu"
-format: 
-  html:
-    code-fold: show
-    toc: true
-    toc-location: left
-    theme: cosmo
-execute:
-  warning: false
-  message: false
+date: "2025-10-27"
+format: html
+theme: cosmo
+toc: true
+toc-location: left
+document-css: false
+link-citations: true
+lang: en
 ---
 
 ### Phase 1: Data Preparation (Technical Appendix)
@@ -158,7 +156,7 @@ data.frame(
 **Choice for Data Cleaning**
 
 Before starting the analysis it is necessary to clean each of the datasets to remove anomalies like houses with no rooms. Although we were looking at residential properties we did not include apartment building as it assigned the sale price of each apartment as the sale price of the building so this was removed. Hence, we are left with homes which mean they will include rooms. We also removed residential locations with sale prices under 10000 or over 1000000 which are very low and high prices and isolated parcel data to data between 2023 and 2024. Census data cleaning involved removing data errors or incomplete fields and adding a column to reflect percentages. The Census data started off with 408 rows and ended with 383 after the cleaning choices.
-Other data that is also included is university and college locations, crime locations and neighborhood. These are cleaned in a later portion and involve transforming the coordinate reference system so that everything corresponds before filtering and recategorizing data to help with interpretation 
+Other data that is also included is university and college locations, crime locations and neighborhood. These are cleaned in a later portion and involve transforming the coordinate reference system so that everything corresponds before filtering and re-categorizing data to help with interpretation 
 
 
 **Cleaning Data Continued: Not Census or Parcel Data**
@@ -222,7 +220,7 @@ parcel_data %>%
 
 **For appendix:** Include all visualizations with detailed interpretations
 1. Distribution of sale prices
-```{r histogram}
+```{r distribution of sales}
 
 ggplot(parcel_data, aes(x = sale_price)) +
   geom_histogram(binwidth = 25000, fill = "#1f78b4", color = "white") +
@@ -235,10 +233,10 @@ ggplot(parcel_data, aes(x = sale_price)) +
   theme_minimal()
 
 ```
-The graph above shows the highest concentration of parcel sale prices is around" `$200,000`. The histogram is right-skewed which means most sale prices are concentrated on the left side between zero and `$375,000`. In such a cases the mean is generally greater than the median because the tail which refers to the large values on the right could inflate the mean.   
+The graph above shows the highest concentration of parcel sale prices is around" `$200,000`. The histogram is right-skewed which means most sale prices are concentrated on the left side between zero and `$375,000`. In such a case the mean is generally greater than the median because the tail  on the right could inflate the mean. This affects the model's prediction for lower income homes. 
 
 2. Geographic distribution (map)
-```{r histogram}
+```{r geographic distribution}
 
 library(tmap)
 
@@ -258,11 +256,11 @@ tm_shape(parcel_data) +
 
 
 ```
-The geographic distribution of sale prices in Philadelphia shows that the most expensive sales were around Center City, North West Philadelphia and North East Philadelphia Airport.The lowest sales are in South and North Philadelphia. Some areas seem to increase from the lowest sale price to the highest without a transition of sale prices.
+The geographic distribution of sale prices in Philadelphia shows that the most expensive sales were around Center City, North West Philadelphia and North East Philadelphia Airport.The lowest sales are in South and North Philadelphia. There is little transition from areas with a high sale price to areas with a low sale price.
 
 
 3. Price vs. structural features (scatter plots)
-```{r histogram}
+```{r price vs structural scatter plots}
 
 # Sale Price vs Total Livable Area
 ggplot(parcel_data, aes(x = total_livable_area, y = sale_price)) +
@@ -529,7 +527,7 @@ feature_summary <- data.frame(
     "Identifies context of neighborhood wealth levels",
     "Stabilizes variance for regression modeling",
     "Normalizes skewed size variable for modeling",
-    "Accounts for devaluation of property value with time",
+    "Accounts for how homes are desireable when they are historic but devalued when they are too old",
     "Changed categorical condition to numeric to understand exterior desirability"
   )
 )
@@ -542,12 +540,13 @@ kable(feature_summary, caption = "Summary of Engineered Features", align = "l")
 ```
 
 **Justification:**
-The features included were engineered to capture social, economic, and environmental factors influencing housing prices. Buffer-based and nearest-neighbor measures quantify local accessibility and safety. Census data helps to enrich parcels with socio-economic context. Interaction terms account for neighborhood-level wealth effects which helps contextualize external features of a home, for instance homes in a wealthy neighborhood are more likely to have a higher property value than those not in a wealthy neighborhood. Applying a binary indicator improves model interpretability and performance for external condition. A more individualized reason for including each feature is included in the table above.
+The features included were engineered to capture social, economic, and environmental factors influencing housing prices. Buffer-based and k nearest-neighbor measures quantify local accessibility and safety. Census data helps to enrich parcels with socio-economic context. Interaction terms account for neighborhood-level wealth which helps contextualize external features of a home, for instance homes in a wealthy neighborhood are more likely to have a higher property value than those in other neighborhood. Applying a binary indicator improves model interpretability and performance for the external condition of a property. The table above includes why each feature was chosen.
 
----
-### Phase 4: Model Building
 
-**Build models progressively: (for example)**
+
+### Phase 4: **Models**
+
+**Model progression:**
 
 1. Structural features only
 2. + Census variables
@@ -556,11 +555,7 @@ The features included were engineered to capture social, economic, and environme
 
 **For appendix:**
 
-- Complete model code
-- Full stargazer/modelsummary output
-- Coefficient interpretations
-
-```{r model builder code and summary}
+```{r code and summary}
 model1 <- lm(log_sale_price ~ number_of_bathrooms + number_of_bedrooms + log_livable_area + garage_spaces + Age + I(Age^2) + exterior_good, data = parcel_data)
 
 summary(model1)
@@ -588,7 +583,7 @@ plot(fitted(model3), residuals(model3))
 ```
 
 ***Coefficient interpretations:***
----
+
 
 ### Phase 5: Model Validation
 
@@ -661,7 +656,6 @@ ggplot(parcel_data, aes(x = predict(model_cv4$finalModel), y = log_sale_price)) 
 **Discuss which features matter the most:**
 The features which matter the most are wealthy neighborhoods, log of livable areas, percentage with a bachelor's degree and percentage of poverty. The First three features have a positive effect while the percentage of poverty has a strong inverse effect.
 
----
 ### Phase 6: Model Diagnostics 
 
 **Check assumptions for best model:**
@@ -719,10 +713,10 @@ parcel_data %>%
 ```
 
 **Detailed Discussion:**
-The final model explains approximately 59% of the variation in housing prices across Philadelphia, indicating a moderately strong fit. The Mean Absolute Error (MAE) of 0.34 suggests that, on average, the model’s predictions are off by about 34% of the true log-transformed sale price, which translates to an average deviation of roughly 62% from the actual sale price when converted back to dollar terms. This level of accuracy is reasonable given the complexity and variability of the housing market. The most influential predictors of housing prices include the wealthy neighborhoods, log of livable areas, percentage with a bachelor's degree, all of which have strong positive effects on property values. Conversely, the percentage of residents in poverty show strong negative relationships with home prices, underscoring the social and safety dimensions that influence property markets.
+The final model explains approximately 59% of the variation in housing prices across Philadelphia, indicating a moderately strong fit. The Mean Absolute Error (MAE) of 0.34 suggests that the model’s predictions are off by about 34%. The RMSE score means that predictions are abou $154,200 off the true sale price. This level of accuracy is reasonable given the complexity and variability of the housing market. The most influential predictors of housing prices include wealthy neighborhoods, log of livable areas, percentage with a bachelor's degree, all of which have strong positive effects on property values. Conversely, the percentage of poverty and proximity to crime have strong negative relationships with home prices, underscoring how social perceptions of safety influence property values.
 
-Neighborhoods that are the hardest to predict tend to be those undergoing rapid change or instability, particularly areas experiencing gentrification, high prevalence of vacant and distressed properties or smaller sample areas. Examples of this are Nicetown, Fairhill, and Upper Kensington which are all located in North Philadelphia. In gentrifying areas, rising educational attainment and declining crime rates occur alongside persistent vacancy and poverty, leading to non-linear effects that standard models struggle to account for. The rapid transformation in these neighborhoods contributes to greater residual errors.
+Neighborhoods that are the hardest to predict tend to be those undergoing rapid change or instability, particularly areas experiencing gentrification, high prevalence of vacant and distressed properties or smaller sample areas. Examples of this are Nicetown, Fairhill, and Upper Kensington which are all located in North Philadelphia. In fact the top 10 locations which are the most hard to predict are all in North Philadelphia. Areas experiencing gentrification, rising educational attainment and declining crime rates occur alongside persistent vacancy and poverty, leading to non-linear effects that standard models struggle to account for. The rapid transformation in these neighborhoods contributes to greater residual errors. Thus, the model performs best in **mid-range markets** and is less stable in low-value areas. 
 
-From an equity perspective, including socioeconomic indicators such as poverty and education levels improves predictive accuracy but also risks reproducing structural inequalities. By learning from historical patterns of disinvestment, the model may undervalue properties in low-income or historically marginalized neighborhoods. This raises ethical and policy concerns, as automated valuation models could inadvertently reinforce existing disparities. To mitigate this, residual analysis can be used to test for spatial bias, identifying neighborhoods where the model systematically under- or over-predicts values. Recognizing these limitations highlights opportunities to inform equitable housing policy, such as targeting investment or development funds toward historically undervalued areas rather than further harming them through biased valuation tools.
+From an equity perspective, including socioeconomic indicators such as poverty and education levels improves predictive accuracy but also risks reproducing structural inequalities. By learning from historical patterns of disinvestment, the model may undervalue properties in low-income or historically marginalized neighborhoods. This raises ethical concerns when creating policy based on automated valuation models as it could inadvertently reinforce existing disparities. To mitigate this, residual analysis can be used to test for spatial bias, identifying neighborhoods where the model systematically under- or over-predicts values. Recognizing the limitations within the model highlights opportunities to inform equitable housing policy, such as directing investment initiatives or development funds toward historically undervalued areas rather than further harming them through biased valuation tools. Limitations while creating this model were not cleaning the data in a way that removed abnormalities such as homes that sold for a lot more than those nearby when looking at square footage and not including transportation data which would enrich our understanding of the property's spatial features.
 
 
