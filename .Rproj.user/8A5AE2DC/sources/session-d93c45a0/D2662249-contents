@@ -1,0 +1,16 @@
+---
+title: "Week 8 Notes"
+date: November 2, 2025
+---
+
+## Key Concepts Learned
+- Modeling housing prices
+
+## Coding Techniques
+- NA recap of prior concepts
+
+## Connections to Policy
+- No perfect model, but can create different models such as a hyper-local model which models one city very well and then a more general model which is good for modeling multiple places. 
+
+## Reflection
+- Importance of data cleaning, one of the groups was able to have a high RMSE score in their first model when using the same features as my group just through their method for cleaning the data. One of the aspects they took out were homes which had a very high or low sale price for square footage which helped account for outliers in the data. 

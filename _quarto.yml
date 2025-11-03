@@ -24,6 +24,8 @@ website:
             text: Week 6
           - href: weekly-notes/week-07-notes.qmd
             text: Week 7
+          - href: weekly-notes/week-08-notes.qmd
+            text: Week 8           
       - text: lab 
         menu:
           - href: labs/lab1/scripts/assignment1.qmd
