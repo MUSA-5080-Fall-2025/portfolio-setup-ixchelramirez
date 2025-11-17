@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.8.24">
 
   <meta name="author" content="Ixchel Ramirez">
-  <title>Ixchel Ramirez - MUSA 5080 Portfolio – Final Appendix</title>
+  <title>Ixchel Ramirez - MUSA 5080 Portfolio – Lab 3</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -127,7 +127,7 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Final Appendix</h1>
+  <h1 class="title">Lab 3</h1>
   <p class="subtitle">Philadelphia Housing Price Prediction Improving Property Tax Assessments</p>
 
 <div class="quarto-title-authors">
@@ -246,7 +246,8 @@ Ixchel Ramirez
 </section>
 <section class="slide level2">
 
-<p>###Model Validation The model started wiith an RMSE of 0.6076661, R squared of 0.35 and MAE of 0.4539476. This improved gradually with our final values being RMSE 0.4856623, R squared of 0.5850392 and MAE of 0.3442266.</p>
+<h3 id="model-validation">Model Validation</h3>
+<p>The model started wiith an RMSE of 0.6076661, R squared of 0.35 and MAE of 0.4539476. This improved gradually with our final values being RMSE 0.4856623, R squared of 0.5850392 and MAE of 0.3442266.</p>
 <table class="caption-top">
 <thead>
 <tr class="header">
@@ -281,15 +282,16 @@ Ixchel Ramirez
 </section>
 <section class="slide level2">
 
-<p>###Predicted vs Actual Sales <img data-src="figures/predict_vs_actual.png" class="quarto-figure quarto-figure-center"></p>
-</section>
+<h3 id="predicted-vs-actual-sales">Predicted vs Actual Sales</h3>
+
+<img data-src="figures/predict_vs_actual.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section class="slide level2">
 
 <p><strong>Which features matter the most:</strong> The features which matter the most are wealthy neighborhoods, log of livable areas, percentage with a bachelor’s degree and percentage of poverty. The First three features have a positive effect while the percentage of poverty has a strong inverse effect.</p>
 </section>
 <section class="slide level2">
 
-<p>###Model Diagnostics</p>
+<h3 id="model-diagnostics">Model Diagnostics</h3>
 <p><strong>Residual Plot</strong> <img data-src="figures/residualplot.png" class="quarto-figure quarto-figure-center"></p>
 </section>
 <section class="slide level2">
@@ -302,13 +304,14 @@ Ixchel Ramirez
 </section>
 <section class="slide level2">
 
-<p><strong>Interpretation of plots</strong> The Residuals vs Fitted plot is around 0 but slightly curved. This means that it could be missing a non-linear term. We tried accounting for this by squaring the age of the home.</p>
+<h3 id="interpretation-of-plots">Interpretation of plots</h3>
+<p>The Residuals vs Fitted plot is around 0 but slightly curved. This means that it could be missing a non-linear term. We tried accounting for this by squaring the age of the home.</p>
 <p>The Q-Q Plot shows that the model roughly follows a normal distribution which means using a linear regression makes sense. Ultimately this provides more confidence in our model.</p>
 <p>Cooks distance shows many spikes that are the same with a few all ones. A few tall spikes is not concerning as most of them are around the same height but the one on the right side of the graph could indicate a possible outlier that was not accounted for.</p>
 </section>
 <section class="slide level2">
 
-<p>###Detailed Discussion</p>
+<h3 id="detailed-discussion">Detailed Discussion</h3>
 <p>The final model explains approximately 59% of the variation in housing prices across Philadelphia, indicating a moderately strong fit. The Mean Absolute Error (MAE) of 0.34 suggests that the model’s predictions are off by about 34%. The RMSE score means that predictions are abou $154,200 off the true sale price. This level of accuracy is reasonable given the complexity and variability of the housing market. The most influential predictors of housing prices include wealthy neighborhoods, log of livable areas, percentage with a bachelor’s degree, all of which have strong positive effects on property values. Conversely, the percentage of poverty and proximity to crime have strong negative relationships with home prices, underscoring how social perceptions of safety influence property values.</p>
 <p>Neighborhoods that are the hardest to predict tend to be those undergoing rapid change or instability, particularly areas experiencing gentrification, high prevalence of vacant and distressed properties or smaller sample areas. Examples of this are Nicetown, Fairhill, and Upper Kensington which are all located in North Philadelphia. In fact the top 10 locations which are the most hard to predict are all in North Philadelphia. Areas experiencing gentrification, rising educational attainment and declining crime rates occur alongside persistent vacancy and poverty, leading to non-linear effects that standard models struggle to account for. The rapid transformation in these neighborhoods contributes to greater residual errors. Thus, the model performs best in <strong>mid-range markets</strong> and is less stable in low-value areas.</p>
 <p>From an equity perspective, including socioeconomic indicators such as poverty and education levels improves predictive accuracy but also risks reproducing structural inequalities. By learning from historical patterns of disinvestment, the model may undervalue properties in low-income or historically marginalized neighborhoods. This raises ethical concerns when creating policy based on automated valuation models as it could inadvertently reinforce existing disparities. To mitigate this, residual analysis can be used to test for spatial bias, identifying neighborhoods where the model systematically under- or over-predicts values. Recognizing the limitations within the model highlights opportunities to inform equitable housing policy, such as directing investment initiatives or development funds toward historically undervalued areas rather than further harming them through biased valuation tools. Limitations while creating this model were not cleaning the data in a way that removed abnormalities such as homes that sold for a lot more than those nearby when looking at square footage and not including transportation data which would enrich our understanding of the property’s spatial features.</p>

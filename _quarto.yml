@@ -35,12 +35,13 @@ website:
             text: Lab 1
           - href: labs/lab_2/Ramirez_Ixchel_Assignment2.qmd
             text: Lab 2 
-          - href: labs/lab3/Lab3.qmd
-            text: Lab 4 
+          - href: labs/lab3/lab3.qmd
+            text: Midterm 
+          - href: labs/lab_4/Lab4_IxchelRamirez.qmd
+            text: Lab 4
           - href: labs/slides/PrettySlides.qmd
             text: Slides
-          - href: labs/lab_4/Lab4_IxchelRamirez.qmd
-            text: Lab 4  
+
 
 format:
   html:

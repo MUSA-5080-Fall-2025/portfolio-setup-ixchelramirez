@@ -1,18 +1,28 @@
 ---
-title: "Lab4"
+title: "Assignment 4: Spatial Predictive Analysis"
+subtitle: "Bias in Burglary Prediction Modeling"
 author: "Ixchel Ramirez"
 date: "2025-11-17"
-output: html_document
+format: 
+  html:
+    code-fold: false
+    toc: true
+    toc-location: left
+    theme: cosmo
+    embed-resources: true
+execute:
+  warning: false
+  message: false
 ---
 
-#Introduction
+# Crime Analysis in Chicago
+
+## Introduction
 This lab looks into the correlation between 311 calls about street lights being out and burglaries. Lighting is often connected to people's perceptions on safety, people choose to walk a certain way at night because there are more street lights which enable them to see. I wanted to see how this perception of safety connects to burglary calls.  
 
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-install.packages("patchwork")
-
 
 # Load required packages
 library(tidyverse)      # Data manipulation
@@ -64,8 +74,8 @@ cat("✓ Working directory:", getwd(), "\n")
 Above section loads in necessary packages to allow for functions to run, placing this at the beginning of the document helps it remain organized. 
 
 
-#Chicago Spatial Data 
-```{r cars}
+## Chicago Spatial Data 
+```{r spatial data}
 
 # Load police districts (used for spatial cross-validation)
 policeDistricts <- 
@@ -94,8 +104,8 @@ cat("  - Police beats:", nrow(policeBeats), "\n")
 ##Loaded in Chicago Spatial data 
 The coordinate reference system is set to 'ESRI:102271' (Illinois State Plane East) because it minimizes distortion since all the data we are looking at is in Chicago. Additionally, since Chicago is in the US which feet as a system of measurement it removes the need to convert units and minimizes confusion and error in distance calculations.
 
-#Burglary Data
-```{r cars}
+## Burglary Data
+```{r burglary data}
 
 # Load from provided data file (downloaded from Chicago open data portal)
 
@@ -114,9 +124,8 @@ cat("  - Date range:", min(burglaries$date, na.rm = TRUE), "to",
 ```
 There are 7482 burglaries in the data set and the CRS is also set to Chicago which is useful for later calculations that check distance. If the datasets used different coordinate reference systems then problems would arise later when calculating distance. It is important to understand that while there are 7482 burglaries the spatial distribution of these is likely unequal and reflects where crime is surveilled rather than only where crime occurs. 
 
-#Visualize point data
-
-```{r cars}
+## Visualize point data
+```{r visualize point data}
 
 # Simple point map
 p1 <- ggplot() + 
@@ -157,7 +166,7 @@ p1 + p2 +
 
 Burglaries are not evenly distributed across Chicago, they are more frequent on the South Side of Chicago. There is also a high concentration on the Northeast side. The South Side of Chicago has a reputation for being dangerous which could result in an increased police presense as well as an increase in willingness to report the crimes here. 
 
-#Creat the Fishnet
+## Create the Fishnet
 ```{r create fishnet}
 
 # Create 500m x 500m grid
@@ -181,7 +190,7 @@ cat("  - Cell area:", round(st_area(fishnet[1,])), "square meters\n")
 ```
 The step above creates a fishnet grid which turns the point data into a grid of cells. Creating a grid provides a uniform unit of analysis so that one can aggregate counts, calculate spatial features and run regression models. Existing boundaries like neighborhoods and census tracts change which could result an added step when comparing years. Neighborhood boundaries are particularly harder to use because not everyone agrees on where a neighborhood begins and ends. While this approach helps with standardization it is harder to understand where burglaries occur (such as which neighborhood) because the grid does not delineate this. Thus, it requires a degree of familiarity with the area and where neighborhoods are to understand how social interactions influence the observations from the data. 
 
-#Aggregate Burglaries to Grid
+## Aggregate Burglaries to Grid
 ```{r aggregate-burglaries}
 # Spatial join: which cell contains each burglary?
 burglaries_fishnet <- st_join(burglaries, fishnet, join = st_within) %>%
@@ -231,7 +240,7 @@ ggplot() +
 Burglaries are more dispersed in the South Side and in the core of the North. The largest cluster of cells with zero burglaries is also on the South Side. 
 
 
-#Kernal Density Basemap
+## Kernal Density Basemap
 ```{r kde-baseline}
 #| message: false
 
@@ -289,8 +298,8 @@ ggplot() +
 
 The above map looks very similar to the other patterns of crime in Chicago because a KDE baseline looks as what happens if an incident, in this case burglaries happens where they did before. This map counts the clusters of incidents well.
 
-#Spatial predictor variables
-```{r cars}
+## Spatial predictor variables
+```{r spatial predictor var}
 
 streetLights_allOut <- read_csv(here("data/311_Service_Requests_-_Street_Lights_-_All_Out_-_Historical_20251112.csv"))%>%
   filter(!is.na(Latitude), !is.na(Longitude)) %>%
@@ -305,7 +314,7 @@ cat("  - Number of calls:", nrow(streetLights_allOut), "\n")
 ```
 
 
-#Count of Street Lights all out per cell
+## Count of Street Lights all out per cell
 ```{r countstreetLights_allOut}
 # Aggregate lights out to fishnet
 lights_fishnet <- st_join(streetLights_allOut, fishnet, join = st_within) %>%
@@ -348,7 +357,7 @@ p1 + p2 +
 
 In this section I pulled data from Chicago's Open Data portal for 311 calls on street lights that are all out. Visually there are similarities between where burglairies occur and where street lights are all out specifically on the South Side there is more difference between these two categories in the North. This suggests that where street lights are out could help predict burglaries, but more likely just implies perceptions of safety.
 
-#Nearest Neighbor 
+## Nearest Neighbor 
 
 Here we are calculating the mean distance to the 3 nearest blockw with all the lights out. 
 
@@ -380,8 +389,8 @@ summary(fishnet$streetLights_allOut.nn)
 A low value of streetLights_allOut.nn means means that the block is closer to other blocks with the lights out while a high value means that a cell is far from other cells with blocks that have the lights out. Blocks that have low value could indicate decreasing perceptions of safety. 
 
 
-#Distance to Hot Spots
-```{r}
+## Distance to Hot Spots
+```{r distance to hot spots}
 
 #used this for local_moran becuase when it saves fishnet as fishnet it aborts 2. dplyr mutate + sf can still corrupt the geometry column
 
@@ -472,7 +481,7 @@ if (nrow(hotspots) > 0) {
 There are 297 hot spots.
 
 
-#Cross Validation 
+## Cross Validation 
 ```{r join-districts}
 # Join district information to fishnet
 fishnet <- st_join(
@@ -491,8 +500,8 @@ cat("  - Cells:", nrow(fishnet), "\n")
 Police districts are used for the spatial cross-validation because we are using crime data.
 
 
-#Poisson Regression
-```{r prepare-data}
+## Poisson Regression
+```{r prepare-data for Poisson}
 # Create clean modeling dataset
 fishnet_model <- fishnet %>%
   st_drop_geometry() %>%
@@ -514,7 +523,7 @@ cat("  - Variables:", ncol(fishnet_model), "\n")
 There are 1708 observations and 6 variables. All of the values are positive because we are counting and cannot have a negative number.
 
 
-```{r}
+```{r poisson continued}
 fishnet_safe <- data.frame(
   countBurglaries      = as.numeric(fishnet_model$countBurglaries),
   streetLights_allOut  = as.numeric(fishnet_model$streetLights_allOut),
@@ -571,7 +580,7 @@ if (dispersion > 1.5) {
 ```
 Overdispersion is detected which means the variance of the response variable exceeds it's mean, which is an assumption in the Poisson distribution. 
 
-#Negative Binomial Regression 
+## Negative Binomial Regression 
 ```{r fit-negbin}
 
 ##ALternative way to get negative binomial regression
