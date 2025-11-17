@@ -1,0 +1,23 @@
+"0","# Calculate performance metrics
+comparison <- fishnet %>%
+  st_drop_geometry() %>%
+  filter(!is.na(prediction_nb), !is.na(prediction_kde)) %>%
+  summarize(
+    model_mae = mean(abs(countBurglaries - prediction_nb)),
+    model_rmse = sqrt(mean((countBurglaries - prediction_nb)^2)),
+    kde_mae = mean(abs(countBurglaries - prediction_kde)),
+    kde_rmse = sqrt(mean((countBurglaries - prediction_kde)^2))
+  )
+"
+"1","[1m[33mError[39m in `filter()`:[22m
+[38;5;254m[36mℹ[38;5;254m In argument: `!is.na(prediction_nb)`.[39m
+[1mCaused by error:[22m
+[33m![39m object 'prediction_nb' not found
+Backtrace:
+[90m 1. [39m... %>% ...
+[90m 4. [39m[1m[94mdplyr:::filter.data.frame([39m[22m., !is.na(prediction_nb), !is.na(prediction_kde)[1m[94m)[39m[22m
+[90m 5. [39mdplyr:::filter_rows(.data, dots, by)
+[90m 6. [39mdplyr:::filter_eval(...)
+[90m 8. [39mmask$eval_all_filter(dots, env_filter)
+[90m 9. [39m[1mdplyr[22m (local) eval()
+"

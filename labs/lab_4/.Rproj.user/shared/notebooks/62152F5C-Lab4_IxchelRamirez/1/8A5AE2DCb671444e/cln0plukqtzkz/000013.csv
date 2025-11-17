@@ -1,0 +1,14 @@
+"0","cat(""Poisson dispersion parameter:"", round(dispersion, 2), ""\n"")
+"
+"1","Poisson dispersion parameter:"
+"1"," "
+"1"," "
+"1","
+"
+"0","if (dispersion > 1.5) {"
+"0","  cat(""⚠ Overdispersion detected! Consider Negative Binomial model.\n"")"
+"0","} else {"
+"0","  cat(""✓ Dispersion looks okay for Poisson model.\n"")"
+"0","}"
+"2","Error in if (dispersion > 1.5) { : argument is of length zero
+"

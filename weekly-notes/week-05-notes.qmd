@@ -1,6 +1,6 @@
 ---
 title: "Week 5 Notes - Introduction to Linear Regression"
-date: "2025-1509-"
+date: "2025-10-06"
 ---
 
 ## Key Concepts Learned

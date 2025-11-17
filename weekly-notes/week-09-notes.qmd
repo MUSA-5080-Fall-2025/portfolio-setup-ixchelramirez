@@ -1,0 +1,23 @@
+---
+title: "Week 9 Notes - Critial Perspectives on Predictive Policing"
+date: November 10, 2025
+---
+
+## Key Concepts Learned
+- Dirty Data extended definition: data derived from or influenced by corrupt, biased and unlawful practices including data that has been intentionally manipulated or 'juked', as well as data that is distorted by individual and societal biases> - Richardson et al. 2019
+- 4 types of dirty data: fabricated, systematically biased data, missing/incomplete data, and proxy problems
+- Predictive policing is tempting because it is efficient, objective, proactive and data-driven but this has many assumptions
+- 4 generations
+- 
+
+## Coding Techniques/Technical Side
+- Crime reports reflect police decisions, calls for service reflect community bias and things can be intentionally excluded when cleaning. 
+- fishnet
+- Global Moran's I Formula
+- Statistical Significance Testing
+
+## Connections to Policy
+- Shows the importance of not only questioning the cleaning process but how information is gathered, if it is gathered in a bias way then the model will be encoded with bias. 
+
+## Reflection
+- Understanding how models are created so we can make better ones.

@@ -1,0 +1,8 @@
+"0","if (dispersion > 1.5) {
+  cat(""⚠ Overdispersion detected! Consider Negative Binomial model.\n"")
+} else {
+  cat(""✓ Dispersion looks okay for Poisson model.\n"")
+}
+"
+"1","⚠ Overdispersion detected! Consider Negative Binomial model.
+"

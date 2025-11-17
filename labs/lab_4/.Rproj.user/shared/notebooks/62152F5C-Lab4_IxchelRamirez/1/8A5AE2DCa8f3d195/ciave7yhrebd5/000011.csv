@@ -1,0 +1,16 @@
+"0","# Create clean modeling dataset"
+"0","fishnet_model <- fishnet %>%"
+"0","  st_drop_geometry() %>%"
+"0","  dplyr::select("
+"0","    uniqueID,"
+"0","    District,"
+"0","    countBurglaries,"
+"0","    streetLights_allOut,"
+"0","    streetLights_allOut.nn,"
+"0","    dist_to_hotspot"
+"0","  ) %>%"
+"0","  na.omit()  # Remove any remaining NAs"
+"2","Error in (function (cond)  : 
+  error in evaluating the argument 'object' in selecting a method for function 'na.omit': Can't select columns that don't exist.
+[31m✖[39m Column `dist_to_hotspot` doesn't exist.
+"

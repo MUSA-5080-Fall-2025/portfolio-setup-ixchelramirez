@@ -1,0 +1,17 @@
+"0","# Fit Negative Binomial model
+if (dispersion > 1.5) {
+  model_nb <- glm.nb(
+    countBurglaries ~ streetLights_allOut + streetLights_allOut.nn + dist_to_hotspot,
+    data = fishnet_scaled,
+    control = glm.control(maxit = 50, epsilon = 1e-8)  # increase iterations / precision
+  )
+  summary(model_nb)
+  
+  # Compare AIC
+  cat(""\nModel Comparison:\n"")
+  cat(""Poisson AIC:"", round(AIC(model_poisson), 1), ""\n"")
+  cat(""Negative Binomial AIC:"", round(AIC(model_nb), 1), ""\n"")
+}
+"
+"2","Error in if (dispersion > 1.5) { : argument is of length zero
+"

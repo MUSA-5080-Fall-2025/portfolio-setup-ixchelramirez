@@ -1,0 +1,20 @@
+"0","summary(model)
+"
+"1","Generalized Linear Model of class 'speedglm':
+"
+"1","
+Call: "
+"1"," "
+"1","speedglm(formula = countBurglaries ~ streetLights_allOut + streetLights_allOut.nn + "
+"1"," "
+"1","    dist_to_hotspot, data = fishnet_reload, family = poisson())"
+"1"," "
+"1","
+
+"
+"1","Coefficients:
+"
+"1"," ------------------------------------------------------------------"
+"1"," "
+"1","
+"

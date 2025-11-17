@@ -1,0 +1,9 @@
+"0","fishnet_scaled <- fishnet_model_pure %>% 
+  mutate(
+    streetLights_allOut     = scale(streetLights_allOut),
+    streetLights_allOut.nn  = scale(streetLights_allOut.nn),
+    dist_to_hotspot         = scale(dist_to_hotspot)
+  )
+"
+"2","Error: object 'fishnet_model_pure' not found
+"

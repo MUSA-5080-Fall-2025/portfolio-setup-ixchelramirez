@@ -1,0 +1,7 @@
+"0","model_nb <- glm.nb(
+  countBurglaries ~ streetLights_allOut + streetLights_allOut.nn + dist_to_hotspot,
+  data = fishnet_model_pure
+)
+"
+"2","Error in eval(expr, p) : object 'fishnet_model_pure' not found
+"

@@ -1,0 +1,42 @@
+"0","#| fig-width: 8"
+"0","#| fig-height: 6"
+"0",""
+"0","# Visualize hot spots"
+"0","ggplot() +"
+"0","  geom_sf("
+"0","    data = fishnet, "
+"0","    aes(fill = moran_class), "
+"0","    color = NA"
+"0","  ) +"
+"0","  scale_fill_manual("
+"0","    values = c("
+"0","      ""High-High"" = ""#d7191c"","
+"0","      ""High-Low"" = ""#fdae61"","
+"0","      ""Low-High"" = ""#abd9e9"","
+"0","      ""Low-Low"" = ""#2c7bb6"","
+"0","      ""Not Significant"" = ""gray90"""
+"0","    ),"
+"0","    name = ""Cluster Type"""
+"0","  ) +"
+"0","  labs("
+"0","    title = ""Local Moran's I: Lights Out Clusters"","
+"0","    subtitle = ""High-High = Hot spots of disorder"""
+"0","  ) +"
+"0","  theme_crime()"
+"1","[1m[33mError[39m in `geom_sf()`:[22m
+[38;5;254m[33m![38;5;254m Problem while computing aesthetics.
+[36mℹ[38;5;254m Error occurred in the 1st layer.[39m
+[1mCaused by error:[22m
+[33m![39m object 'moran_class' not found
+Backtrace:
+[90m  1. [39m[1mbase[22m (local) `<fn>`(x)
+[90m  2. [39mggplot2 (local) `print.ggplot2::ggplot`(x)
+[90m  4. [39mggplot2 (local) `ggplot_build.ggplot2::ggplot`(x)
+[90m  5. [39mggplot2:::by_layer(...)
+[90m 12. [39mggplot2 (local) f(l = layers[[i]], d = data[[i]])
+[90m 13. [39ml$compute_aesthetics(d, plot)
+[90m 14. [39mggplot2 (local) compute_aesthetics(..., self = self)
+[90m 15. [39mggplot2:::eval_aesthetics(aesthetics, data)
+[90m 16. [39m[1mbase[22m::lapply(aesthetics, eval_tidy, data = data, env = env)
+[90m 17. [39m[1mrlang[22m (local) FUN(X[[i]], ...)
+"
