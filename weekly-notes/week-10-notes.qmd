@@ -1,0 +1,26 @@
+---
+title: "Week 10 Notes - Logistic Regression for Binary Outcomes"
+date: November 16, 2025
+---
+
+## Key Concepts Learned
+- Logistic Regression: predicts the probability that Y = 1 and constrains predictions between 0 and 1
+- Why can't we use linear regression for binary outcomes? Predictions will be positive integers but with linear regression can be negative and decimal numbers. This also assumes constant effect across range and violates regression assumptions. 
+- The Logit Transformation works with log-odds not probabilities directly. When the odds ratio is greater than 1 the predictor increases odds of outcome and when the odds ratio is less than 1 the predictor decreases odds of outcome.
+- Thresholds, determining what the threshold is impact results such as placing too many people in quarantine or missing people who are sick and then more people become sick. 
+- Confusion Matrices
+    - true positive
+    - false positive
+    - true negative
+    - false negative 
+
+## Coding Techniques/Technical Side
+- glm 
+- family equal to binomial
+- fishnet
+
+## Connections to Policy
+- Logistic regression is used in policy for: criminal justice, health, economics and urban planning  
+
+## Reflection
+- It takes time to think about the impacts of the different thresholds. Setting a threshold too high or too low both impact people so one must weight the costs and benefits of each. 

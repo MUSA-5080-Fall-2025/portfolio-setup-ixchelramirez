@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2025-11-16">
 
-<title>Week 2 Notes – Ixchel Ramirez - MUSA 5080 Portfolio</title>
+<title>Week 10 Notes - Logistic Regression for Binary Outcomes – Ixchel Ramirez - MUSA 5080 Portfolio</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -186,8 +187,7 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#key-concepts-learned" id="toc-key-concepts-learned" class="nav-link active" data-scroll-target="#key-concepts-learned">Key Concepts Learned</a></li>
-  <li><a href="#coding-techniques" id="toc-coding-techniques" class="nav-link" data-scroll-target="#coding-techniques">Coding Techniques</a></li>
-  <li><a href="#questions-challenges" id="toc-questions-challenges" class="nav-link" data-scroll-target="#questions-challenges">Questions &amp; Challenges</a></li>
+  <li><a href="#coding-techniquestechnical-side" id="toc-coding-techniquestechnical-side" class="nav-link" data-scroll-target="#coding-techniquestechnical-side">Coding Techniques/Technical Side</a></li>
   <li><a href="#connections-to-policy" id="toc-connections-to-policy" class="nav-link" data-scroll-target="#connections-to-policy">Connections to Policy</a></li>
   <li><a href="#reflection" id="toc-reflection" class="nav-link" data-scroll-target="#reflection">Reflection</a></li>
   </ul>
@@ -198,7 +198,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Week 2 Notes</h1>
+<h1 class="title">Week 10 Notes - Logistic Regression for Binary Outcomes</h1>
 </div>
 
 
@@ -209,7 +209,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">Invalid Date</p>
+      <p class="date">November 16, 2025</p>
     </div>
   </div>
   
@@ -224,32 +224,37 @@ ul.task-list li input[type="checkbox"] {
 <section id="key-concepts-learned" class="level2">
 <h2 class="anchored" data-anchor-id="key-concepts-learned">Key Concepts Learned</h2>
 <ul>
-<li>Algorithms are a set of instructions</li>
-<li>Working with Margins of Error - it is important to understand how reliable data are</li>
+<li>Logistic Regression: predicts the probability that Y = 1 and constrains predictions between 0 and 1</li>
+<li>Why can’t we use linear regression for binary outcomes? Predictions will be positive integers but with linear regression can be negative and decimal numbers. This also assumes constant effect across range and violates regression assumptions.</li>
+<li>The Logit Transformation works with log-odds not probabilities directly. When the odds ratio is greater than 1 the predictor increases odds of outcome and when the odds ratio is less than 1 the predictor decreases odds of outcome.</li>
+<li>Thresholds, determining what the threshold is impact results such as placing too many people in quarantine or missing people who are sick and then more people become sick.</li>
+<li>Confusion Matrices
+<ul>
+<li>true positive</li>
+<li>false positive</li>
+<li>true negative</li>
+<li>false negative</li>
+</ul></li>
 </ul>
 </section>
-<section id="coding-techniques" class="level2">
-<h2 class="anchored" data-anchor-id="coding-techniques">Coding Techniques</h2>
+<section id="coding-techniquestechnical-side" class="level2">
+<h2 class="anchored" data-anchor-id="coding-techniquestechnical-side">Coding Techniques/Technical Side</h2>
 <ul>
-<li>Tibble</li>
-<li>group_by()</li>
-<li>summarize()</li>
-</ul>
-</section>
-<section id="questions-challenges" class="level2">
-<h2 class="anchored" data-anchor-id="questions-challenges">Questions &amp; Challenges</h2>
-<ul>
-<li>Still understanding how to use GitHub</li>
+<li>glm</li>
+<li>family equal to binomial</li>
+<li>fishnet</li>
 </ul>
 </section>
 <section id="connections-to-policy" class="level2">
 <h2 class="anchored" data-anchor-id="connections-to-policy">Connections to Policy</h2>
-<p>Data analytics is used for incorporating data into decision making processes but this is not a solution for eliminating bias.</p>
+<ul>
+<li>Logistic regression is used in policy for: criminal justice, health, economics and urban planning</li>
+</ul>
 </section>
 <section id="reflection" class="level2">
 <h2 class="anchored" data-anchor-id="reflection">Reflection</h2>
 <ul>
-<li>Understand the limitations of data</li>
+<li>It takes time to think about the impacts of the different thresholds. Setting a threshold too high or too low both impact people so one must weight the costs and benefits of each.</li>
 </ul>
 
 
