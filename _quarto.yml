@@ -37,10 +37,10 @@ website:
             text: Lab 2 
           - href: labs/lab3/lab3.qmd
             text: Midterm 
-          - href: labs/lab_4/Lab4_IxchelRamirez.qmd
-            text: Lab 4
           - href: labs/slides/PrettySlides.qmd
             text: Slides
+          - href: labs/lab_4/Lab4_IxchelRamirez.qmd
+            text: Lab 4
 
 
 format:
