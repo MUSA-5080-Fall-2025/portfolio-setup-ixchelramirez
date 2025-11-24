@@ -1,26 +1,26 @@
 {
-    "id": "2AA3E4A1",
+    "id": "A2C2B193",
     "path": "C:/Users/ixche/Desktop/PPA/portfolio-setup-ixchelramirez/_quarto.yml",
     "project_path": "_quarto.yml",
     "type": "yaml",
-    "hash": "1438778608",
+    "hash": "0",
     "contents": "",
     "dirty": false,
-    "created": 1763384887877.0,
+    "created": 1763989340003.0,
     "source_on_save": false,
     "relative_order": 1,
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "31,25",
-        "scrollLine": "15"
+        "cursorPosition": "37,6",
+        "scrollLine": "37"
     },
     "folds": "",
-    "lastKnownWriteTime": 1763384936,
+    "lastKnownWriteTime": 1763989303,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1763384937030,
+    "last_content_update": 1763989303,
     "read_only": false,
     "read_only_alternatives": []
 }

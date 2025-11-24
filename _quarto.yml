@@ -30,7 +30,8 @@ website:
             text: Week 9  
           - href: weekly-notes/week-10-notes.qmd
             text: Week 10 
-
+          - href: weekly-notes/week-11-notes.qmd
+            text: Week 11 
       - text: lab 
         menu:
           - href: labs/lab1/scripts/assignment1.qmd

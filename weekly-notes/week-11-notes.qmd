@@ -1,0 +1,28 @@
+---
+title: "Week 11 Notes - Space-Time Prediction"
+date: November 24, 2025
+---
+
+## Key Concepts Learned
+- Panel data: Same stations observed over time
+    - each row = unit x time period
+    - station x hour combinations
+    - repeated observations
+- cross-sectional data: each row = one observation
+    - House prices in 2024
+    - One snapshot in time
+- Temporal features: What happened last hour?
+- Space-tine interaction: Different patterns by location AND time
+    - Temporal Lags (recap): past demand predicts future demand, you can use spatial features such as distance to downtown or temporal features suxh as demand 1 hour ago, using temporal features is what we are adding in this week.
+- Binning Data: grouping trips into uniform time intervals (bins)
+
+
+## Coding Techniques/Technical Side
+- 1 hour bins vs 15-minute bins, used 1 hour for simplicity but can use 15 for more complex models. Do this through changing the unit to 15 mins and interval15
+- Temporal lag: create lag variables which are calculated within each station
+
+## Connections to Policy
+- Temporal features are helpful to include in predictions to understand the demand in specific areas over time. This can be used for transportation from local commuting to flights to understand how capacity needs to be built during busy times.
+
+## Reflection
+- The similarities in methods make it hard to distinguish them all. For future reference I should make a sheet that synthesizes them all.  
