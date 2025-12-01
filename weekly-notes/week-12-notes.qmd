@@ -1,0 +1,27 @@
+---
+title: "Week 12 Notes - Mapping the DNA of Urban Neighborhoods"
+date: November 28, 2025
+---
+
+## Key Concepts Learned
+- Sequencing matters - neighborhood sequences tell us about patterns of change across metro areas, where different processes occur spatially, racial and ethnic dynamics tied to socioeconomic change, which neighborhoods are stuck vs volatile
+- Method
+    - Classify neighborhoods at multiple time points
+    - Create sequences fro each neighborhood
+    - Measure similarity between sequences
+    - Cluster similar trajectories 
+    - Map the results to see spatial patterns
+
+## Coding Techniques/Technical Side
+- 5 Main Steps
+    - K-Means Clustering to create socioeconomic typologies
+    - Create longitudinal sequences for each neighborhood
+    - Measure sequence similarity 
+    - Cluster sequences
+    - Map sequences membership 
+
+## Connections to Policy & Theory 
+- Classic Urban Theories: Chicago School vs Los Angeles School 
+
+## Reflection
+- We have learned many new things this semester! 

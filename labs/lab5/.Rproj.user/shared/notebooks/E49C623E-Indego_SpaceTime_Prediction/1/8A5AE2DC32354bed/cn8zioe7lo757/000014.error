@@ -1,0 +1,1 @@
+{"frames":[],"message":"Error: unexpected ',' in:\n\"  group_by(interval60, start_station, start_lat, start_lon,\n           Med_Inc, Percent_Taking_Transit, Percent_White, Total_Pop),\"\n"}

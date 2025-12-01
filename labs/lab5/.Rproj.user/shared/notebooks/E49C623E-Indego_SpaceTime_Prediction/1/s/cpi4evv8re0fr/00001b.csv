@@ -1,0 +1,5 @@
+"0","school_parcels <- st_read(""data/Schools_Parcels.geojson"") %>%
+  st_transform(26918)   # project to PA South (meters)
+"
+"2","Error: Cannot open ""data/Schools_Parcels.geojson""; The file doesn't seem to exist.
+"

@@ -1,0 +1,9 @@
+"0","model2_Test2 <- lm("
+"0","  Trip_Count ~ as.factor(hour) + dotw_simple +"
+"0","    Temperature + Precipitation +"
+"0","    lag1Hour + lag3Hours + lag1day +"
+"0","    is_holiday,"
+"0","  data = train"
+"0",")"
+"2","Error in eval(predvars, data, env) : object 'dotw_simple' not found
+"

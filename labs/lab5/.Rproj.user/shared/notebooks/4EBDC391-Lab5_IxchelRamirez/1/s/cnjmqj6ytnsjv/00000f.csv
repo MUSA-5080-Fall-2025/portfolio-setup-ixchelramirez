@@ -1,0 +1,5 @@
+"0",""
+"0","indego <- indego %>%"
+"0","  filter("
+"0","    !(duration <= 5 & start_station == end_station |  passholder_type == ""NULL""))"
+"0",""

@@ -1,0 +1,8 @@
+"0","# Count trips by station-hour"
+"0","trips_panel <- indego_census %>%"
+"0","  group_by(interval60, start_station, start_lat, start_lon,"
+"0","           Med_Inc, Percent_Taking_Transit, Percent_White, Total_Pop), %>%"
+"2","Error: unexpected ',' in:
+""  group_by(interval60, start_station, start_lat, start_lon,
+           Med_Inc, Percent_Taking_Transit, Percent_White, Total_Pop),""
+"
