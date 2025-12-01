@@ -2,5 +2,5 @@
 "0","  echo = TRUE,"
 "0","  warning = FALSE,"
 "0","  message = FALSE,"
-"0","  cache = TRUE"
+"0","  cache = FALSE"
 "0",")"

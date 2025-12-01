@@ -11,10 +11,28 @@ output:
 ---
 
 ```{r setup, include=FALSE}
+# Silence sf and rgdal
+options(sf_use_s2 = FALSE)
+
+# Silence readr progress bars
+options(readr.show_progress = FALSE)
+
+# Silence tigris / tidycensus progress
+options(tigris_progress = FALSE)
+
+# Silence messages from dplyr, sf, etc.
+suppressPackageStartupMessages({
+  library(sf)
+  library(dplyr)
+  library(readr)
+})
+
+options(knitr.duplicate.label = "allow")
 knitr::opts_chunk$set(
   echo = TRUE,
   warning = FALSE,
   message = FALSE,
+  progress = FALSE,
   cache = FALSE
 )
 ```
@@ -164,42 +182,6 @@ table(indego$bike_type)
 ```
 Initially there are 365760 observations and 15 variables 
 
-#leave this out for the first round
-# Cleaning data  
-```{r cleaning data}
-
-indego <- indego %>%
-  filter(
-    !(duration <= 5 & start_station == end_station |  passholder_type == "NULL"))
-
-```
-This chunk of data takes out bike rentals which are counted as trips but weren't trips for things such as a bike not working and needing to be returned. The code filters for trips that are five minutes and under where the start and end station are the same. There are some instances where the start and end location are different for five minutes which could indicate a short bike ride. Cleaning the data brought the observations down to 354596. I also filtered out where the pass-holder type is null as we will be using this category later. 
-
-
-Exploring data after cleaned
-```{r explore_data after cleaned}
-# How many trips?
-cat("Total trips in Q2 2025:", nrow(indego), "\n")
-
-# Date range
-cat("Date range:", 
-    min(mdy_hm(indego$start_time)), "to", 
-    max(mdy_hm(indego$start_time)), "\n")
-
-# How many unique stations?
-cat("Unique start stations:", length(unique(indego$start_station)), "\n")
-
-# Trip types
-table(indego$trip_route_category)
-
-# Passholder types
-table(indego$passholder_type)
-
-# Bike types
-table(indego$bike_type)
-```
-All of the trips were classified as round trip because the start and end location were the same even though the user was most likely not able to go anywhere. 
-
 
 ## Create Time Bins
 
@@ -308,7 +290,8 @@ The station that the most trips start from is 3,010, this station has about 30% 
 ## Loading Philadelphia Census Data to add demographic context
 ```{r load_census}
 # Get Philadelphia census tracts
-philly_census <- get_acs(
+philly_census <- suppressMessages(
+  get_acs(
   geography = "tract",
   variables = c(
     "B01003_001",  # Total population
@@ -337,7 +320,7 @@ philly_census <- get_acs(
     Percent_White = (White_Pop / Total_Pop) * 100
   ) %>%
   st_transform(crs = 4326)  # WGS84 for lat/lon matching
-
+)
 # Check the data
 glimpse(philly_census)
 ```
@@ -1228,14 +1211,14 @@ grid.arrange(p1, p2, p3, ncol = 2)
 **Critical Question:** Are prediction errors systematically higher in certain demographic groups? What are the equity implications?
 Across all three plots, the trend lines are shallow, which indicates weak relationships between station-level prediction error (MAE) and neighborhood demographics. However, the slight positive trends suggest that it is harder to predict in predominantly white areas with the highest demand complexity. Since demographics do not have a strong negative impact on the prediction this will not be changed as a feature.
 
-1. Median Income (slight positive slope)
-The weak upward trend suggests that stations in higher-income neighborhoods experience slightly larger prediction errors. This may reflect that higher-income areas—particularly Center City and adjacent neighborhoods—tend to have more complex, variable demand patterns, especially during commuting peaks and recreational surges. Because these stations also have a higher total volume of rides, even small percentage errors can translate into higher MAE. Importantly, this does not necessarily mean the model is biased against high-income neighborhoods—it may simply reflect the difficulty of modeling highly volatile demand.
+1. Median Income 
+The slight positive slope suggests that stations in higher-income neighborhoods experience slightly larger prediction errors. This may reflect that higher-income areas, especially those near Center City, tend to have more complex, variable demand patterns, especially during commuting peaks and recreational surges. Since these stations also have a higher total volume of rides, even small percentage errors can translate into higher MAE. Importantly, this does not necessarily mean the model is biased against high-income neighborhoods—it may simply reflect the difficulty of modeling highly volatile demand.
 
-2. Transit Usage (slight negative slope)
-The negative trend indicates that stations in neighborhoods where more residents use public transit tend to have slightly lower prediction errors. These neighborhoods often have more stable, routine mobility patterns, which are easier for the model to learn. The clustering near the origin (low MAE) suggests that in these neighborhoods, demand is more predictable, while a few high-MAE outliers may be stations affected by special events or atypical usage patterns.
+2. Transit Usage 
+The slight negative trend indicates that stations in neighborhoods where more residents use public transit tend to have slightly lower prediction errors. These neighborhoods often have more stable, routine mobility patterns, which are easier for the model to learn. The clustering near the origin (low MAE) suggests that in these neighborhoods, demand is more predictable, while a few high-MAE outliers may be stations affected by special events or atypical usage patterns.
 
-3. Percent White (slight positive slope)
-The slight positive slope suggests that stations in predominantly White neighborhoods may have marginally higher prediction errors. This aligns with the pattern seen for income: neighborhoods with higher White populations in Philadelphia often overlap with high-demand, high-variability areas (e.g., Center City, Graduate Hospital, parts of South Philly). More variability → harder to predict → slightly higher MAE. The more noticeable spread after 50% White indicates that prediction errors become more variable in these areas.
+3. Percent White 
+The slight positive slope suggests that stations in predominantly White neighborhoods may have marginally higher prediction errors. This aligns with the pattern for income: neighborhoods with higher White populations in Philadelphia often overlap with high-demand, high-variability areas (e.g., Center City, and Graduate Hospital). The more noticeable spread after 50% White indicates that prediction errors become more variable in these areas.
 
 
 ---
@@ -1293,13 +1276,6 @@ study_panel_complete <- study_panel_complete %>%
     by = "start_station"
   )
 
-#Might not need if run from the top 
-#study_panel_complete <- study_panel_complete %>%
-#  mutate(
-#    MAPNAME = coalesce(MAPNAME.x, MAPNAME.y)
-#  ) %>%
-#  select(-MAPNAME.x, -MAPNAME.y)
-
 #identifying high-demand stations in Center City
 center_city_high_demand_stations <- study_panel_complete %>%
   filter(MAPNAME %in% center_city_neighborhoods) %>%
@@ -1326,9 +1302,8 @@ study_panel_complete <- study_panel_complete %>%
       1, 0
     )
   )
-
-
 ```
+The above code defines what we consider perfect 
 
 ```{r Setting up core factor and training}
 study_panel_complete <- study_panel_complete %>%
@@ -1394,7 +1369,7 @@ cat("MAE Enhanced LM:", round(mae_enhanced, 3), "\n")
 
 
 ```
-
+I chose this model because it slightly improves the R-squared values by 0.0077 (+0.77%). These features make the MAE 0.002 higher. However, these features were chosen because the other features which I tried which included holidays and trying to account for non-residential stations which are lost when Census data are joined more negatively impacted the R-squared and MAE values. 
 
 
 ```{r Poisson}
@@ -1441,11 +1416,10 @@ cat("Overdispersion:", round(overdispersion, 3), "\n")
 ## Part 4: Critical Reflection 
 
 Operational implications:
-The enhanced model’s MAE is still not reliable enough for Indego to use for automated rebalancing, especially during rush hours and in Center City, where demand is most volatile. Although incorporating distance to key Center City neighborhoods slightly improved predictions for outer stations, it did not meaningfully reduce error in the core. Given these limitations, the system should only be used under stable conditions—such as good weather and outside peak periods—while separate or specialized models may be needed to capture rush-hour dynamics.
+The enhanced model’s MAE is still not reliable enough for Indego to use for automated rebalancing, especially during rush hours such as around 8:30am in Center City, where demand is most volatile. Although incorporating distance to key Center City neighborhoods slightly improved predictions for outer stations, it did not significantly reduce error in the core. Given these limitations, the system should only be used under stable conditions—such as good weather and outside peak periods. Model 5 attempted to capture rush-hour dynamics but the MAE suffered this indicates that a separate model might be needed for this specific area and time period, a hyper-local model.
 
 Equity and model limitations:
-Prediction errors are somewhat higher in higher-income, higher-White neighborhoods, likely because these stations experience the greatest fluctuations in demand. While this pattern does not imply bias against underserved areas, there is a risk that Indego could unintentionally reinforce existing disparities if it prioritizes improving accuracy only in already well-served neighborhoods. To prevent this, demand prediction should be paired with safeguards such as minimum service standards, equity-based station planning, and periodic evaluations of model performance across demographic groups. The model also struggles during atypical periods—rush hours, weather transitions, and holidays—suggesting that additional seasonal data, event indicators, or separate modeling approaches for peak periods and major events would improve accuracy.
-
+Prediction errors are somewhat higher in higher-income, majority White neighborhoods, likely because these stations experience the greatest fluctuations in demand. While this pattern does not imply bias against underserved areas, there is a risk that Indego could unintentionally reinforce existing disparities if it prioritizes improving accuracy only in already well-served neighborhoods rather than expanding station access. To prevent this, demand prediction should be paired with safeguards such as minimum service standards, equity-based station planning, and periodic evaluations of model performance across demographic groups. To improve the model one might look at data across a larger duration of time, and a schedule of transit disruptions. To capture events it would be helpful to use national holidays in conjunction with sporting events. One of the features I tried was holidays. However, since several holidays fell on the weekend when ridership is lower this did not help improve the accuracy of the model. As Philly is a big sports city, categorizing games more broadly as events might help improve this component. 
 ---
 
 
