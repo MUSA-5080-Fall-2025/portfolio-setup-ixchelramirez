@@ -305,6 +305,7 @@ philly_census <- suppressMessages(
   county = "Philadelphia",
   year = 2022,
   geometry = TRUE,
+  progress = FALSE,
   output = "wide"
 ) %>%
   rename(
