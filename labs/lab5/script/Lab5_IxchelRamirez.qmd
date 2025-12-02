@@ -182,7 +182,6 @@ table(indego$bike_type)
 ```
 Initially there are 365760 observations and 15 variables 
 
-
 ## Create Time Bins
 
 We need to aggregate trips into hourly intervals for our panel data structure.
@@ -774,7 +773,6 @@ At 5am people start commuting  0.005, this continues to increase until the morni
 ...
 23     +0.076      late night minimal
 
-Isn't this fun!
 
 ## Model 2: Add Temporal Lags
 
@@ -794,7 +792,6 @@ Residual standard error: 1.101 on 438680 degrees of freedom
 Multiple R-squared:  0.1054,	Adjusted R-squared:  0.1053 
 F-statistic:  1666 on 31 and 438680 DF,  p-value: < 0.00000000000000022
 
-**Question:** Did adding lags improve R²? Why or why not?
 Adding lags improved the R-squared it went from 0.1053 to  0.3553. 
 
 ## Model 3: Add Demographics
@@ -828,7 +825,7 @@ cat("Model 4 Adj R-squared:", summary(model4)$adj.r.squared, "\n")
 ```
 Model 2 continues to have the best R-squared. 
 
-**What do station fixed effects capture?** Baseline differences in demand across stations (some are just busier than others!).
+Station fixed effects captures baseline differences in demand across stations (some are just busier than others!).
 
 ## Model 5: Add Rush Hour Interaction
 
@@ -912,10 +909,9 @@ ggplot(mae_results, aes(x = reorder(Model, -MAE), y = MAE)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
-**Question:** Which features gave us the biggest improvement?
 The temporal lags provided the most improvement it went from .82 to .62.
 
-**Key Takeaways for Comparing Q2 to Q1:** Which
+**Key Takeaways for Comparing Q2 to Q1:**
 For both quarters the MAE values were the best for the second model and the second best for the first model. However the MAE values are slightly lower for Q1 (the mean absolute errors are  0.5 and 0.6 for Models 2 and 1 respectively) than for Q2. 
 
 Temporal patterns are different as it is beginning to warm up in the Spring so there are more trips this could help account for the MAE value being slightly larger for all the models. 
@@ -1175,8 +1171,6 @@ The model struggles most with the PM rush, specifically the weekday rush. The we
 
 ## Errors and Demographics
 
-Are prediction errors related to neighborhood characteristics?
-
 ```{r errors_demographics}
 # Join demographic data to station errors
 station_errors_demo <- station_errors %>%
@@ -1209,8 +1203,8 @@ p3 <- ggplot(station_errors_demo, aes(x = Percent_White, y = MAE)) +
 grid.arrange(p1, p2, p3, ncol = 2)
 ```
 
-**Critical Question:** Are prediction errors systematically higher in certain demographic groups? What are the equity implications?
-Across all three plots, the trend lines are shallow, which indicates weak relationships between station-level prediction error (MAE) and neighborhood demographics. However, the slight positive trends suggest that it is harder to predict in predominantly white areas with the highest demand complexity. Since demographics do not have a strong negative impact on the prediction this will not be changed as a feature.
+**Demographic Groups and Equity Implications**
+General Analysis: Across all three plots, the trend lines are shallow, which indicates weak relationships between station-level prediction error (MAE) and neighborhood demographics. However, the slight positive trends suggest that it is harder to predict in predominantly white areas with the highest demand complexity. Since demographics do not have a strong negative impact on the prediction this will not be changed as a feature.
 
 1. Median Income 
 The slight positive slope suggests that stations in higher-income neighborhoods experience slightly larger prediction errors. This may reflect that higher-income areas, especially those near Center City, tend to have more complex, variable demand patterns, especially during commuting peaks and recreational surges. Since these stations also have a higher total volume of rides, even small percentage errors can translate into higher MAE. Importantly, this does not necessarily mean the model is biased against high-income neighborhoods—it may simply reflect the difficulty of modeling highly volatile demand.
@@ -1262,7 +1256,7 @@ sum(is.na(stations_with_neighborhood$MAPNAME))
 
 ```
 
-
+Using the neighborhood data we identify neighborhoods in Center City that will have a high station demand
 ```{r Center City Feature}
 center_city_neighborhoods <- c(
   "Rittenhouse", "Logan Square", "Spring Garden",
@@ -1295,6 +1289,7 @@ study_panel_complete <- study_panel_complete %>%
 
 ```
 
+The second new feature is for perfect weather
 ```{r perfect weather feature}
 study_panel_complete <- study_panel_complete %>%
   mutate(
@@ -1304,7 +1299,8 @@ study_panel_complete <- study_panel_complete %>%
     )
   )
 ```
-The above code defines what we consider perfect 
+
+Once again we will train the data
 
 ```{r Setting up core factor and training}
 study_panel_complete <- study_panel_complete %>%
@@ -1370,7 +1366,8 @@ cat("MAE Enhanced LM:", round(mae_enhanced, 3), "\n")
 
 
 ```
-I chose this model because it slightly improves the R-squared values by 0.0077 (+0.77%). These features make the MAE 0.002 higher. However, these features were chosen because the other features which I tried which included holidays and trying to account for non-residential stations which are lost when Census data are joined more negatively impacted the R-squared and MAE values. 
+
+I chose this model because it slightly improves the R-squared values by 0.0077 (+0.77%). Unfortunately, these features increase the MAE value  +0.002. However, the other features I tried (holidays and non-residential stations) impacted the R-squared and MAE values more negatively. 
 
 
 ```{r Poisson}

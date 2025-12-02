@@ -1,0 +1,7 @@
+"0","study_panel_complete <- study_panel_complete %>%"
+"0","  mutate("
+"0","    perfect_weather = ifelse("
+"0","      Temperature >= 60 & Temperature <= 75 & Precipitation < 0.01,"
+"0","      1, 0"
+"0","    )"
+"0","  )"

@@ -1493,7 +1493,6 @@ F-statistic:  1947 on 31 and 498715 DF,  p-value: &lt; 0.00000000000000022</code
 <p><strong>Hourly Interpretation</strong></p>
 <p>Hour Coefficient Interpretation 0 (baseline) 0.000 trips/hour (midnight) 1 to 4am are less than midnight ranging from -0.043 to -0.110 … At 5am people start commuting 0.005, this continues to increase until the morning rush peak +0.809. At 9 am there is a post-rush cool down +0.592 … 15 or 3pm the afternoon picks up +0.666 and peaks at hour 17 aka 5PM with +1.094<br>
 18 +0.893 evening declining. The evening peak is higher than the morning peak … 23 +0.076 late night minimal</p>
-<p>Isn’t this fun!</p>
 </section>
 <section id="model-2-add-temporal-lags" class="level2">
 <h2 class="anchored" data-anchor-id="model-2-add-temporal-lags">Model 2: Add Temporal Lags</h2>
@@ -1564,7 +1563,7 @@ F-statistic:  8149 on 34 and 498712 DF,  p-value: &lt; 0.00000000000000022</code
 </div>
 </div>
 <p>Model 1: Residual standard error: 1.101 on 438680 degrees of freedom Multiple R-squared: 0.1054, Adjusted R-squared: 0.1053 F-statistic: 1666 on 31 and 438680 DF, p-value: &lt; 0.00000000000000022</p>
-<p><strong>Question:</strong> Did adding lags improve R²? Why or why not? Adding lags improved the R-squared it went from 0.1053 to 0.3553.</p>
+<p>Adding lags improved the R-squared it went from 0.1053 to 0.3553.</p>
 </section>
 <section id="model-3-add-demographics" class="level2">
 <h2 class="anchored" data-anchor-id="model-3-add-demographics">Model 3: Add Demographics</h2>
@@ -1709,7 +1708,7 @@ F-statistic:  1405 on 37 and 156977 DF,  p-value: &lt; 0.00000000000000022</code
 </div>
 </div>
 <p>Model 2 continues to have the best R-squared.</p>
-<p><strong>What do station fixed effects capture?</strong> Baseline differences in demand across stations (some are just busier than others!).</p>
+<p>Station fixed effects captures baseline differences in demand across stations (some are just busier than others!).</p>
 </section>
 <section id="model-5-add-rush-hour-interaction" class="level2">
 <h2 class="anchored" data-anchor-id="model-5-add-rush-hour-interaction">Model 5: Add Rush Hour Interaction</h2>
@@ -1852,8 +1851,8 @@ F-statistic:  1405 on 37 and 156977 DF,  p-value: &lt; 0.00000000000000022</code
 </div>
 </div>
 </div>
-<p><strong>Question:</strong> Which features gave us the biggest improvement? The temporal lags provided the most improvement it went from .82 to .62.</p>
-<p><strong>Key Takeaways for Comparing Q2 to Q1:</strong> Which For both quarters the MAE values were the best for the second model and the second best for the first model. However the MAE values are slightly lower for Q1 (the mean absolute errors are 0.5 and 0.6 for Models 2 and 1 respectively) than for Q2.</p>
+<p>The temporal lags provided the most improvement it went from .82 to .62.</p>
+<p><strong>Key Takeaways for Comparing Q2 to Q1:</strong> For both quarters the MAE values were the best for the second model and the second best for the first model. However the MAE values are slightly lower for Q1 (the mean absolute errors are 0.5 and 0.6 for Models 2 and 1 respectively) than for Q2.</p>
 <p>Temporal patterns are different as it is beginning to warm up in the Spring so there are more trips this could help account for the MAE value being slightly larger for all the models.</p>
 <p>Temporal Lags, time and weather are the most important features in the second quarter.</p>
 <hr>
@@ -2149,7 +2148,6 @@ F-statistic:  1405 on 37 and 156977 DF,  p-value: &lt; 0.00000000000000022</code
 </section>
 <section id="errors-and-demographics" class="level2">
 <h2 class="anchored" data-anchor-id="errors-and-demographics">Errors and Demographics</h2>
-<p>Are prediction errors related to neighborhood characteristics?</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -2191,7 +2189,7 @@ F-statistic:  1405 on 37 and 156977 DF,  p-value: &lt; 0.00000000000000022</code
 </div>
 </div>
 </div>
-<p><strong>Critical Question:</strong> Are prediction errors systematically higher in certain demographic groups? What are the equity implications? Across all three plots, the trend lines are shallow, which indicates weak relationships between station-level prediction error (MAE) and neighborhood demographics. However, the slight positive trends suggest that it is harder to predict in predominantly white areas with the highest demand complexity. Since demographics do not have a strong negative impact on the prediction this will not be changed as a feature.</p>
+<p><strong>Demographic Groups and Equity Implications</strong> General Analysis: Across all three plots, the trend lines are shallow, which indicates weak relationships between station-level prediction error (MAE) and neighborhood demographics. However, the slight positive trends suggest that it is harder to predict in predominantly white areas with the highest demand complexity. Since demographics do not have a strong negative impact on the prediction this will not be changed as a feature.</p>
 <ol type="1">
 <li><p>Median Income The slight positive slope suggests that stations in higher-income neighborhoods experience slightly larger prediction errors. This may reflect that higher-income areas, especially those near Center City, tend to have more complex, variable demand patterns, especially during commuting peaks and recreational surges. Since these stations also have a higher total volume of rides, even small percentage errors can translate into higher MAE. Importantly, this does not necessarily mean the model is biased against high-income neighborhoods—it may simply reflect the difficulty of modeling highly volatile demand.</p></li>
 <li><p>Transit Usage The slight negative trend indicates that stations in neighborhoods where more residents use public transit tend to have slightly lower prediction errors. These neighborhoods often have more stable, routine mobility patterns, which are easier for the model to learn. The clustering near the origin (low MAE) suggests that in these neighborhoods, demand is more predictable, while a few high-MAE outliers may be stations affected by special events or atypical usage patterns.</p></li>
@@ -2260,6 +2258,7 @@ Geodetic CRS:  WGS 84</code></pre>
 <pre><code>[1] 0</code></pre>
 </div>
 </div>
+<p>Using the neighborhood data we identify neighborhoods in Center City that will have a high station demand</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -2292,6 +2291,7 @@ Geodetic CRS:  WGS 84</code></pre>
 <span id="cb90-27"><a href="#cb90-27" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
+<p>The second new feature is for perfect weather</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -2304,7 +2304,7 @@ Geodetic CRS:  WGS 84</code></pre>
 <span id="cb91-7"><a href="#cb91-7" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
-<p>The above code defines what we consider perfect</p>
+<p>Once again we will train the data</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -2406,7 +2406,7 @@ R-squared improvement: 0.0077 (+0.77%) </code></pre>
 <pre><code>MAE Enhanced LM: 0.622 </code></pre>
 </div>
 </div>
-<p>I chose this model because it slightly improves the R-squared values by 0.0077 (+0.77%). These features make the MAE 0.002 higher. However, these features were chosen because the other features which I tried which included holidays and trying to account for non-residential stations which are lost when Census data are joined more negatively impacted the R-squared and MAE values.</p>
+<p>I chose this model because it slightly improves the R-squared values by 0.0077 (+0.77%). Unfortunately, these features increase the MAE value +0.002. However, the other features I tried (holidays and non-residential stations) impacted the R-squared and MAE values more negatively.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
